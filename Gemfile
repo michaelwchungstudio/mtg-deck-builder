@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # Magic: The Gathering gem *
 gem 'mtg_sdk'
 
+# Devise gem *
+gem 'devise'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
