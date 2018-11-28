@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   get "/users" => "users#index"
   get "/profile/:id" => "users#profile", :as => :user_profile
 
+  resources :users do
+    resources :decks
+  end
+
 end
