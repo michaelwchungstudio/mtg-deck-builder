@@ -4,4 +4,7 @@ Rails.application.routes.draw do
 
   root "welcome#index"
 
+  get "/users" => "users#index"
+  get "/profile/:id" => "users#profile", :as => :user_profile
+
 end
