@@ -3,6 +3,8 @@ class DecksController < ApplicationController
   end
 
   def new
+    cards = MTG::Card.where(name: 'Jace, the Mind Sculptor').all
+
   end
 
   def create
@@ -19,6 +21,4 @@ class DecksController < ApplicationController
 
   def destroy
   end
-
-
 end
