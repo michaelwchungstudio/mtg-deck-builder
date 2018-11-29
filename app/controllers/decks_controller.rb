@@ -3,7 +3,7 @@ class DecksController < ApplicationController
   end
 
   def new
-    cards = MTG::Card.where(name: 'Jace, the Mind Sculptor').all
+    @cards = MTG::Card.where(name: 'Jace, the Mind Sculptor').all
 
   end
 

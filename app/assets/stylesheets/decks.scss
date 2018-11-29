@@ -11,8 +11,8 @@
 .deck-creation-wrapper {
   display: grid;
   grid-template-columns: 1fr 0.35fr;
-  grid-template-rows: 0.15fr 1fr;
-  height: 1000px;
+  grid-template-rows: 150px 1fr;
+  height: 1600px;
   width: 90%;
   margin: 0 auto 25px;
   border: 1px solid green;
@@ -27,5 +27,16 @@
 }
 
 .card-result-wrapper {
-  
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 15px;
+}
+
+.card-image {
+  height: 300px;
+  width: 250px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 auto 10px;
 }
