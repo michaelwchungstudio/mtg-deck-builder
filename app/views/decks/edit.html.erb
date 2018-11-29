@@ -303,15 +303,15 @@
 
 	search.addEventListener('click', function(){
 		if(cardname.value != "" && cardtype == "" && cardcolor == "" && creature_type == ""){
-					<% cards = MTG::Card.where(name: params[:card_name])%>
-					<% if cards.length != 0 %>
-						<% for card in cards %>
+					<% #cards = MTG::Card.where(name: params[:card_name])%>
+					<% #if cards.length != 0 %>
+						<% #for card in cards %>
 							box = document.createElement('div')
-							box.style.backgroundImage = "url('"+<%%>+"')"
-						<% end %>
+							box.style.backgroundImage = "url('')"
+						<% #end %>
 
-					<% else %>
-					<% end %>
+					
+					<% #end %>
 		}else if{
 
 		}

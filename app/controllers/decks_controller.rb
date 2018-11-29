@@ -19,6 +19,12 @@ class DecksController < ApplicationController
     end
   end
 
+  def search
+    if(params[:name] != nil)
+      @card = MTG::Card.where(name: params[:name])
+    end
+  end
+
   def show
   end
 
