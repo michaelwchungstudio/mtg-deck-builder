@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get "/users" => "users#index"
   get "/profile/:id" => "users#profile", :as => :user_profile
+  post "/search" => "decks#search"
 
   post "/addcard" => "decks#addCardToDeck", :as => :add_card
 
