@@ -9,6 +9,19 @@ class DecksController < ApplicationController
     @deck = Deck.new
   end
 
+  def addCardToDeck
+    card_id = params[:card_id]
+    deck_id = params[:deck_id]
+
+    @deck = Deck.find(2)
+
+    @deck.cardlist += (card_id + ",")
+    p @deck.cardlist
+    @deck.save
+
+    redirect_to "/"
+  end
+
   def create
     @user = current_user
     deck = Deck.new(deck_params)
@@ -19,13 +32,12 @@ class DecksController < ApplicationController
     end
   end
 
-
   def show
   end
 
   def edit
-    p params
     @deck = Deck.where(id: params[:id]).first
+    @user = current_user
   end
 
   def search
@@ -61,9 +73,9 @@ class DecksController < ApplicationController
   end
 
   private
+
   def deck_params
     params.require(:deck).permit(:name, :cardlist, :user_id)
   end
-
 
 end

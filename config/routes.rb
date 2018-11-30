@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get "/profile/:id" => "users#profile", :as => :user_profile
   post "/search" => "decks#search"
 
+  post "/addcard" => "decks#addCardToDeck", :as => :add_card
+
   resources :users do
     resources :decks
   end
