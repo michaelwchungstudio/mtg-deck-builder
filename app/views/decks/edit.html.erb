@@ -1,15 +1,11 @@
-<h1>Decks#edit</h1>
-<p>Find me in app/views/decks/edit.html.erb</p>
 
-
-
-
+<%= form_tag "/search", :name => "searchForm"  do %>
 <div>
 	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
 	<div>
 		Color:
 		<select id="card_color" name="card_color">
-			<option>Select a color</option>
+			<option value="">Select a color</option>
 			<option value="Red">Red</option>
 			<option value="Green">Green</option>
 			<option value="Black">Black</option>
@@ -20,7 +16,7 @@
 	<div>
 	Type:
 	<select id="card_type" name="card_type">
-		<option>Pick a card type</option>	
+		<option value="">Pick a card type</option>	
     	<option value="Artifacts">Artifacts </option>
     	<option value="Creatures">Creatures </option>
     	<option value="Enchantments">Enchantments </option>
@@ -40,7 +36,7 @@
 	<div>
 	Creature Type:
 	<select id="creature_type" name="creature_type">
-		<option>List of all creature types</option>
+		<option value="">List of all creature types</option>
 	    <option value="Advisor">Advisor</option>
 	    <option value="Aetherborn">Aetherborn</option>
 	    <option value="Ally">Ally</option>
@@ -287,11 +283,11 @@
 	<div>
 	    Set:
 		
-			<%=select_tag "Set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
+			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
     </div>
     <input type="submit" id="search" value="Search">
 </div>
-
+<% end %>
 </div>
 
 <script type="text/javascript">
