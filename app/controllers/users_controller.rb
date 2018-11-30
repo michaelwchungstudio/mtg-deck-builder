@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    cards = MTG::Card.where(name: 'Jace, the Mind Sculptor').all
+    cards = MTG::Set.where(set: 'Jace, the Mind Sculptor').all
 
     cards.each do |c|
       p c.set
