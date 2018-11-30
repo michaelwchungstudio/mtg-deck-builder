@@ -31,27 +31,72 @@ class DecksController < ApplicationController
   def search
     @deck = Deck.where(id: params[:id])
     @user = User.where(id: params[:user_id])
-    if(params[:name] != "" && params[:card_color] == "" && params[:card_type] && params[:creature_type] == "" && params[:set] == "")
-      @card = MTG::Card.where(name: params[:name])
-      if(@card.length == 0)
-        @card = "None found"
-      end
-    elsif(params[:name] != "" && params[:card_color] != "" && params[:creature_type] == "")
-      temp = MTG::Card.where(name: params[:name])
-      @card = []
-      if temp.length != 0
-        if(@card.colors.include?(params[:card_color]))
-          for i in 0...temp.length
-            if temp[i].colors.include?(params[:card_color])
-              @card.push(temp[i])
-            end
-          end
-        else
-          @card = "None found"
-        end 
-      end
+            @card = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).all
+            p @card
     
+    if(params[:card_name] != "")
+      if(params[:card_color] != "")
+        if (params[:card_type] != "")
+          if (params[:creature_type] != "")
+            if(params[:set] != "")
+
+            #else
+
+            end
+          #else
+
+          end
+
+        #else
+          
+        end
+
+      #else
+
+      end
+
+    #else
+      # if(params[:card_color] != "")
+      #   if (params[:card_type] != "")
+      #     if (params[:creature_type] != "")
+              # if (params[:set] != "")
+
+              # else
+                
+              # end
+
+      #     else
+
+      #     end
+
+      #   else
+          
+      #   end
+
+      # else
+
+      # end
     end
+
+    #if(params[:name] != "" && params[:card_color] == "" && params[:card_type] && params[:creature_type] == "" && params[:set] == "")
+
+
+    #   @card = MTG::Card.where(name: params[:name])
+    #   if(@card.length == 0)
+    #     @card = "None found"
+    #   end
+    # elsif(params[:name] != "" && params[:card_color] != "" && params[:creature_type] == "")
+    #   temp = MTG::Card.where(name: params[:name]).where(colors: params[:card_color])
+    #   @card = []
+    #   if temp.length != 0
+    #     @card = temp
+    #   else
+    #     @card = "None found"
+    #   end 
+    # elsif( params[:name] != "" && params[:card_color] == "" && params[:creature_type] != "")
+    #   temp = MTG::Card.where(name: )
+    
+     #end
   end
 
   def update
