@@ -1,1 +1,11 @@
 <h1>User profile</h1>
+
+<p> User email: <%= @user.email %></p>
+
+<h2>User's decks</h2>
+
+<% @user_decks.each do |deck| %>
+  <a href="/users/<%= @user.id %>/decks/<%= deck.id %>"> <%= deck.name %></a>
+  <br>
+  <br>
+<% end %>

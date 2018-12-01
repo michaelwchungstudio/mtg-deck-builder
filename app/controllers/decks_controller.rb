@@ -1,5 +1,7 @@
 class DecksController < ApplicationController
+
   $set = MTG::Set.all
+  
   def index
     @user = current_user
     @decks = Deck.where(user_id: @user.id)
@@ -10,24 +12,25 @@ class DecksController < ApplicationController
   end
 
   def addCardToDeck
+    @user = current_user
     card_id = params[:card_id]
     deck_id = params[:deck_id]
 
-    @deck = Deck.find(2)
+    @deck = Deck.find(deck_id)
 
     @deck.cardlist += (card_id + ",")
-    p @deck.cardlist
+
     @deck.save
 
-    redirect_to "/"
+    redirect_to "/users/#{@user.id}/decks/#{@deck.id}/edit/1"
   end
 
   def create
     @user = current_user
     deck = Deck.new(deck_params)
     if deck.save
-      redirect_to "/"
-    else 
+      redirect_to "/users/#{@user.id}/decks/#{deck.id}/edit/1"
+    else
       redirect_to "/users/#{@user.id}/decks/new"
     end
   end
@@ -38,6 +41,19 @@ class DecksController < ApplicationController
   def edit
     @deck = Deck.where(id: params[:id]).first
     @user = current_user
+
+    @deck_card_names = []
+    @deck_card_images = []
+
+    deck_card_list_array = @deck.cardlist.split(",")
+
+    deck_card_list_array.each do |card_id|
+      specific_card = MTG::Card.find(card_id)
+      @deck_card_names.push(specific_card.name)
+      @deck_card_images.push(specific_card.image_url)
+    end
+
+    @cards = MTG::Card.where(page: params[:page_num]).where(pageSize: 9).all
   end
 
   def search
@@ -60,9 +76,9 @@ class DecksController < ApplicationController
           end
         else
           @card = "None found"
-        end 
+        end
       end
-    
+
     end
   end
 
