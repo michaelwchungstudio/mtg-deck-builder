@@ -304,7 +304,7 @@
 	<div>
 	Type:
 	<select id="card_type" name="card_type">
-		<option value="">Pick a card type</option>	
+		<option value="">Pick a card type</option>
     	<option value="Artifacts">Artifacts </option>
     	<option value="Creatures">Creatures </option>
     	<option value="Enchantments">Enchantments </option>
@@ -375,7 +375,7 @@
 
 	<div>
 	    Set:
-		
+
 			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
     </div>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
@@ -387,7 +387,7 @@
 <% end %>
 
 <div>
-	<% for card in @cards%> 
+	<% for card in @cards%>
 	<div><%= card.name %></div>
 	<% end %>
 </div>
