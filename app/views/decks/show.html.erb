@@ -1,2 +1,33 @@
 <h1>Decks#show</h1>
-<p>Find me in app/views/decks/show.html.erb</p>
+<br>
+<h2>deck name: <%= @deck.name %></h2>
+<br>
+<br>
+
+<div class='show-deck-card-wrapper'>
+  <div class='temp-left'>
+    <h3>list of cards:</h3>
+
+    <% @card_list_hash.each do |cardname, num| %>
+      <p class='card-in-deck'><%= num %>x - <%=cardname %></p>
+    <% end %>
+  </div>
+  <div class='temp-right'>
+    <div id='hover-card-image'></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var hoverCard = document.getElementById('hover-card-image');
+  var cardsInDeck = document.getElementsByClassName('card-in-deck');
+  var cardImages = "<%= raw @image_set_string %>";
+  var cardImagesArray = cardImages.split(",")
+
+  for(let i = 0; i < cardsInDeck.length; i++) {
+    cardsInDeck[i].addEventListener('mouseover', function() {
+      console.log(cardImages)
+      hoverCard.style.backgroundImage = `url(${cardImagesArray[i]})`;
+    })
+  }
+
+</script>

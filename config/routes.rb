@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/users/:user_id/decks/:id/edit/:page_num" => "decks#edit"
   get "/users/:user_id/decks/:id/result/:search_name/:search_color/:search_type/:search_creature/:search_set/:page_num" => "decks#result"
   post "/search" => "decks#search"
+  get "/users/:user_id/decks/:id/edit/:page_num" => "decks#edit"
 
 
   post "/addcard" => "decks#addCardToDeck", :as => :add_card
