@@ -52,3 +52,38 @@
 .type-list:last-child {
   margin-bottom: 10px;
 }
+
+// show page
+
+.show-deck-card-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid green;
+
+  div {
+    border: 1px solid blue;
+  }
+}
+
+#hover-card-image {
+  height: 500px;
+  width: 355px;
+  background-image: url("mtg_cardback.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
