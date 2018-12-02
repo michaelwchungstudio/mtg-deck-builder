@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "/users/:user_id/decks/:id/result" => "decks#result"
   post "/search" => "decks#search"
 
+  post "/addcard" => "decks#addCardToDeck", :as => :add_card
+
   resources :users do
     resources :decks
   end
