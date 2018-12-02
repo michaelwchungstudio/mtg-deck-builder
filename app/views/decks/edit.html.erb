@@ -1,5 +1,5 @@
-
-<%= form_tag "/search", :name => "searchForm"  do %>
+<!-- The page defaults to looking for all the cards in Magic -->
+<%= form_tag "/search", :name => "searchForm"  do %> <!-- this form does the search for the cards -->
 <div>
 	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
 	<div>
@@ -301,40 +301,14 @@
 <div>
 	<%if @pagenum.to_i == 1 %>
 		<ul>
+			<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
 			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
 		</ul>
 	<% else %>
 		<ul>
+			<!-- these links goes to the pages of all the cards based on what page you are on. -->
 			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
 			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
 		</ul>
 	<% end %>
 </div>
-
-<script type="text/javascript">
-	var search = document.getElementById('search');
-	var cardname = document.getElementById('card_name');
-	var cardtype = document.getElementById('card_type');
-	var cardcolor = document.getElementById('card_color');
-	var creaturetype = document.getElementById('creaturetype');
-
-	search.addEventListener('click', function(){
-		if(cardname.value != "" && cardtype == "" && cardcolor == "" && creature_type == ""){
-					<% #cards = MTG::Card.where(name: params[:card_name])%>
-					<% #if cards.length != 0 %>
-						<% #for card in cards %>
-							box = document.createElement('div')
-							box.style.backgroundImage = "url('')"
-						<% #end %>
-
-					
-					<% #end %>
-		}else if{
-
-		}
-
-
-	})
-
-
-</script>

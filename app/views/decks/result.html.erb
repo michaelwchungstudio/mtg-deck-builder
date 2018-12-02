@@ -1,4 +1,4 @@
-<%= form_tag "/search", :name => "searchForm"  do %>
+<%= form_tag "/search", :name => "searchForm"  do %> <!-- The same search bar as in edit page -->
 <div>
 	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
 	<div>
@@ -300,6 +300,8 @@
 </div>
 	<%if @pagenum.to_i == 1 %>
 		<ul>
+			<!-- To resolve the issue where we had to pass all the parameters of your search we had to put it in the url. Also there's more
+			pages that we needed to back out of due to how nested things were. Need to do more research on how to do this more streamline -->
 			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>">Next</a></li>
 		</ul>
 	<% else %>
