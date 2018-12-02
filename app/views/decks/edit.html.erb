@@ -285,9 +285,31 @@
 		
 			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
     </div>
+    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+    <input type="hidden" name="deck_id" value="<%= @deck.id %>">
     <input type="submit" id="search" value="Search">
 </div>
+</div>
 <% end %>
+
+<div>
+	<% for card in @cards%> 
+	<div><%= card.name %></div>
+	<% end %>
+</div>
+<div>
+	<%if @pagenum.to_i == 1 %>
+	<% p @pagenum%>
+		<ul>
+			<li> <a href="../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+		</ul>
+	<% else %>
+	<% p @pagenum %>
+		<ul>
+			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
+		</ul>
+	<% end %>
 </div>
 
 <script type="text/javascript">
