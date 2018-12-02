@@ -1,5 +1,4 @@
-<!-- The page defaults to looking for all the cards in Magic -->
-<%= form_tag "/search", :name => "searchForm"  do %> <!-- this form does the search for the cards -->
+<%= form_tag "/search", :name => "searchForm"  do %> <!-- The same search bar as in edit page -->
 <div>
 	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
 	<div>
@@ -287,28 +286,27 @@
     </div>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
     <input type="hidden" name="deck_id" value="<%= params[:id] %>">
-    <input type="hidden" name="page_id" value="edit">
+    <input type="hidden" name="page_id" value="search">
     <input type="submit" id="search" value="Search">
 </div>
 </div>
 <% end %>
 
+
 <div>
-	<% for card in @cards%> 
-	<div><%= card.name %></div>
+	<% for card in @cards %>
+		<div> <%= card.name %> </div>
 	<% end %>
 </div>
-<div>
 	<%if @pagenum.to_i == 1 %>
 		<ul>
-			<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<!-- To resolve the issue where we had to pass all the parameters of your search we had to put it in the url. Also there's more
+			pages that we needed to back out of due to how nested things were. Need to do more research on how to do this more streamline -->
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>">Next</a></li>
 		</ul>
 	<% else %>
 		<ul>
-			<!-- these links goes to the pages of all the cards based on what page you are on. -->
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i - 1 %>">Previous</a></li>
 		</ul>
 	<% end %>
-</div>
