@@ -286,6 +286,40 @@
 			</div>
 			<div>
 			    Set:
+<!-- The page defaults to looking for all the cards in Magic -->
+<%= form_tag "/search", :name => "searchForm"  do %> <!-- this form does the search for the cards -->
+<div>
+	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
+	<div>
+		Color:
+		<select id="card_color" name="card_color">
+			<option value="">Select a color</option>
+			<option value="Red">Red</option>
+			<option value="Green">Green</option>
+			<option value="Black">Black</option>
+			<option value="Blue">Blue</option>
+			<option value="White">White</option>
+		</select>
+	</div>
+	<div>
+	Type:
+	<select id="card_type" name="card_type">
+		<option value="">Pick a card type</option>	
+    	<option value="Artifacts">Artifacts </option>
+    	<option value="Creatures">Creatures </option>
+    	<option value="Enchantments">Enchantments </option>
+    	<option value="Instants">Instants </option>
+    	<option value="Lands">Lands </option>
+    	<option value="Planeswalkers">Planeswalkers </option>
+    	<option value="Sorceries">Sorceries </option>
+    	<option value="Tribals">Tribals </option>
+    	<option value="Planes">Planes </option>
+    	<option value="Phenomena">Phenomena </option>
+    	<option value="Vanguards">Vanguards </option>
+    	<option value="Schemes">Schemes </option>
+    	<option value="Conspiracies">Conspiracies</option>
+	</select>
+	</div>
 
 					<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
 		  </div>
@@ -339,32 +373,35 @@
     <div class='lands-list type-list'></div>
   </div>
 
+	<div>
+	    Set:
+		
+			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
+    </div>
+    <input type="hidden" name="user_id" value="<%= current_user.id %>">
+    <input type="hidden" name="deck_id" value="<%= params[:id] %>">
+    <input type="hidden" name="page_id" value="edit">
+    <input type="submit" id="search" value="Search">
 </div>
+</div>
+<% end %>
 
-<script type="text/javascript">
-	var search = document.getElementById('search');
-	var cardname = document.getElementById('card_name');
-	var cardtype = document.getElementById('card_type');
-	var cardcolor = document.getElementById('card_color');
-	var creaturetype = document.getElementById('creaturetype');
-
-	search.addEventListener('click', function(){
-		if(cardname.value != "" && cardtype == "" && cardcolor == "" && creature_type == ""){
-					<% #cards = MTG::Card.where(name: params[:card_name])%>
-					<% #if cards.length != 0 %>
-						<% #for card in cards %>
-							box = document.createElement('div')
-							box.style.backgroundImage = "url('')"
-						<% #end %>
-
-
-					<% #end %>
-		}else if{
-
-		}
-
-
-	})
-
-
-</script>
+<div>
+	<% for card in @cards%> 
+	<div><%= card.name %></div>
+	<% end %>
+</div>
+<div>
+	<%if @pagenum.to_i == 1 %>
+		<ul>
+			<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
+			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+		</ul>
+	<% else %>
+		<ul>
+			<!-- these links goes to the pages of all the cards based on what page you are on. -->
+			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
+		</ul>
+	<% end %>
+</div>
