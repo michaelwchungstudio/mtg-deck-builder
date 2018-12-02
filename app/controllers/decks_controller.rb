@@ -36,33 +36,32 @@ class DecksController < ApplicationController
   end
 
   def edit
-    @deck = Deck.where(id: params[:id]).first
-<<<<<<< HEAD
+    if params[:id] == nil
+      @deck = Deck.where(id: params[:deck_id]).first
+    else
+      @deck = Deck.where(id: params[:id]).first
+    end
     @user = User.where(id: params[:user_id]).first
-    p params[:page_num]
     @pagenum = params[:page_num]
-    @cards = MTG::Card.where(page: params[:page_num]).where(pageSize: 9).all
-=======
-    @user = current_user
->>>>>>> 78e9b1ed8e0f3445e62302a44e357a23810131ff
+    @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
+      
   end
 
   def search
     @deck = Deck.where(id: params[:deck_id]).first
     @user = User.where(id: params[:user_id]).first
-    if(params[:card_name] == "" && params[:card_color] == "" && params[:card_type] == "" && params[:creature_type] == "" && params[:set] == "")
-      @cards = MTG::Card.where(page: 1).where(pageSize: 9).all
-      redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/edit/1"
-    else
-      @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).all
-      redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/result"
-    end
-
+    @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
+    redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/result/#{params[:card_name].to_s}%/#{params[:card_color].to_s}%/#{params[:card_type].to_s}%/#{params[:creature_type].to_s}%/#{params[:set].to_s}%/1"
     #redirect_back(fallback_location: root_path)
   end
   def result
-    @deck = Deck.where(id: params[:id]).first
-    @user = User.where(id: params[:user_id]).first
+    @search_name = params[:search_name].chomp('%')
+    @search_color = params[:search_color].chomp('%')
+    @search_type = params[:search_type].chomp('%')
+    @search_creature = params[:search_creature].chomp('%')
+    @search_set = params[:search_set].chomp('%')
+    @pagenum = params[:page_num]
+    @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtype: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
   end
 
   def update
@@ -76,11 +75,6 @@ class DecksController < ApplicationController
   def deck_params
     params.require(:deck).permit(:name, :cardlist, :user_id)
   end
-<<<<<<< HEAD
-  def deck_params2
-    params.require(:deck).permit(:user_id, :deck_id, :page_num)
-  end
-=======
->>>>>>> 78e9b1ed8e0f3445e62302a44e357a23810131ff
+
 
 end

@@ -1,4 +1,3 @@
-
 <%= form_tag "/search", :name => "searchForm"  do %>
 <div>
 	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
@@ -287,54 +286,25 @@
     </div>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
     <input type="hidden" name="deck_id" value="<%= params[:id] %>">
-    <input type="hidden" name="page_id" value="edit">
+    <input type="hidden" name="page_id" value="search">
     <input type="submit" id="search" value="Search">
 </div>
 </div>
 <% end %>
 
+
 <div>
-	<% for card in @cards%> 
-	<div><%= card.name %></div>
+	<% for card in @cards %>
+		<div> <%= card.name %> </div>
 	<% end %>
 </div>
-<div>
 	<%if @pagenum.to_i == 1 %>
 		<ul>
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>">Next</a></li>
 		</ul>
 	<% else %>
 		<ul>
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-			<li> <a href="../../../../../users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>">Next</a></li>
+			<li> <a href="../../../../../../../../../../users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i - 1 %>">Previous</a></li>
 		</ul>
 	<% end %>
-</div>
-
-<script type="text/javascript">
-	var search = document.getElementById('search');
-	var cardname = document.getElementById('card_name');
-	var cardtype = document.getElementById('card_type');
-	var cardcolor = document.getElementById('card_color');
-	var creaturetype = document.getElementById('creaturetype');
-
-	search.addEventListener('click', function(){
-		if(cardname.value != "" && cardtype == "" && cardcolor == "" && creature_type == ""){
-					<% #cards = MTG::Card.where(name: params[:card_name])%>
-					<% #if cards.length != 0 %>
-						<% #for card in cards %>
-							box = document.createElement('div')
-							box.style.backgroundImage = "url('')"
-						<% #end %>
-
-					
-					<% #end %>
-		}else if{
-
-		}
-
-
-	})
-
-
-</script>
