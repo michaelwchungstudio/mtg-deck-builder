@@ -118,9 +118,7 @@ class DecksController < ApplicationController
     @image_set.each do |imagelink|
       @image_set_string += (imagelink + ",")
     end
-
-    p @image_set_string
-
+    
   end
 
   def update
