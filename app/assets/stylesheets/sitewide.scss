@@ -1,11 +1,43 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: Helvetica;
   font-size: 16px;
 }
 
-// temp nav margin 
+// Navigation Bar
 nav {
-  margin-bottom: 25px
+  display: flex;
+  background-color: #F5E4B7;
+
+  #mtglogo {
+    height: 65px;
+    width: 200px;
+    background-image: url('mtg_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 15px 0 20px 25px;
+  }
+
+  li {
+    list-style-type: none;
+
+    .navtextlink {
+      margin: 30px;
+      background-color: pink;
+    }
+  }
+
+  li:first-child {
+    margin-right: auto;
+  }
+
+  li:last-child a {
+    margin-right: 60px;
+  }
+}
+
+.main-content {
+  background-color: #706E64;
 }
