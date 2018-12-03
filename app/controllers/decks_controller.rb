@@ -72,65 +72,6 @@ class DecksController < ApplicationController
   end
 
   def search
-    @deck = Deck.where(id: params[:id])
-    @user = User.where(id: params[:user_id])
-    if(params[:name] != "" && params[:card_color] == "" && params[:card_type] && params[:creature_type] == "" && params[:set] == "")
-      @card = MTG::Card.where(name: params[:name])
-      if(@card.length == 0)
-        @card = "None found"
-      end
-    elsif(params[:name] != "" && params[:card_color] != "" && params[:creature_type] == "")
-      temp = MTG::Card.where(name: params[:name])
-      @card = []
-      if temp.length != 0
-        if(@card.colors.include?(params[:card_color]))
-          for i in 0...temp.length
-            if temp[i].colors.include?(params[:card_color])
-              @card.push(temp[i])
-            end
-          end
-        else
-          @card = "None found"
-        end
-      end
-
-    end
-  end
-
-  # Show a specific deck's cards
-  def show
-    require 'set'
-
-    @deck = Deck.find(params[:id])
-
-    # this repeats from edit action - perhaps create custom func (needs more DRY)
-    @deck_card_names = []
-    @deck_card_images = []
-
-    deck_card_list_array = @deck.cardlist.split(",")
-    @card_list_hash = Hash.new(0)
-
-    deck_card_list_array.each do |card_id|
-      if specific_card = MTG::Card.find(card_id)
-        @deck_card_names.push(specific_card.name)
-        @deck_card_images.push(specific_card.image_url)
-      end
-    end
-
-    @image_set = Set.new(@deck_card_images)
-    @image_set_string = ""
-
-    @deck_card_names.each do |cardname|
-      @card_list_hash[cardname] += 1
-    end
-
-    @image_set.each do |imagelink|
-      @image_set_string += (imagelink + ",")
-    end
-
-  end
-
-  def search
     @deck = Deck.where(id: params[:deck_id]).first
     @user = User.where(id: params[:user_id]).first
     #@cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
