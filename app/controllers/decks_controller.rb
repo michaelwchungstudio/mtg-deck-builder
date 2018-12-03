@@ -60,11 +60,6 @@ class DecksController < ApplicationController
       @deck_card_images.push(specific_card.image_url)
     end
 
-    if params[:id] == nil #was having some issues with grabbing the deck id. So installed if statement to solve it.
-      @deck = Deck.where(id: params[:deck_id]).first
-    else
-      @deck = Deck.where(id: params[:id]).first
-    end
     @user = User.where(id: params[:user_id]).first
     #@pagenum will hold the number and be edited on the webpage for link usage
     @pagenum = params[:page_num]
@@ -114,64 +109,6 @@ class DecksController < ApplicationController
   end
 
   def show
-
-    require 'set'
-
-    @deck = Deck.find(params[:id])
-
-    # this repeats from edit action - perhaps create custom func (needs more DRY)
-
-    @deck_card_names = []
-
-    @deck_card_images = []
-
-
-
-    deck_card_list_array = @deck.cardlist.split(",")
-
-    @card_list_hash = Hash.new(0)
-
-
-
-    deck_card_list_array.each do |card_id|
-
-      if specific_card = MTG::Card.find(card_id)
-
-        @deck_card_names.push(specific_card.name)
-
-        @deck_card_images.push(specific_card.image_url)
-
-      end
-
-    end
-
-
-
-    @image_set = Set.new(@deck_card_images)
-
-    @image_set_string = ""
-
-
-
-    @deck_card_names.each do |cardname|
-
-      @card_list_hash[cardname] += 1
-
-    end
-
-
-
-    @image_set.each do |imagelink|
-
-      @image_set_string += (imagelink + ",")
-
-    end
-
-
-
-  end
-
-  def show
     require 'set'
 
     @deck = Deck.find(params[:id])
@@ -200,8 +137,21 @@ class DecksController < ApplicationController
     @image_set.each do |imagelink|
       @image_set_string += (imagelink + ",")
     end
-
   end
+
+
+  def removeCardFromDeck
+    @deck = Deck.where(id: params[:deck_id]).first
+
+    cards = @deck.cardlist.split(',')
+
+    cards.delete_at(params[:card_index].to_i)
+
+    @deck.update(cardlist: cards.join(","))
+
+    redirect_back(fallback_location: root_path)
+  end
+
 
   def update
   end

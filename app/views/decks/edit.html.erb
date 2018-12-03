@@ -333,11 +333,20 @@
   <div class='deck-list-wrapper'>
     <h2 class='deck-title'>Deck List</h2>
 		<% @deck_card_names.each_with_index do |c, i| %>
-		<% if  @deck_card_images[i] == nil %>
-			<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
-		<% else %>
-			<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
-		<% end %>
+			<% if  @deck_card_images[i] == nil %>
+				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
+			<% else %>
+				<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
+			<% end %>
+			<% if user_signed_in? %>
+	          <% if current_user.id == @deck.id %>
+					<%= form_tag "/remove_card" , :name => "removeCard" do %>
+						<%= hidden_field_tag :card_index, i %>
+						<%= hidden_field_tag :deck_id, @deck.id %>
+						<input type="submit" value="remove card">
+					<% end %>
+				<% end %>
+			<% end %>
 		<% end %>
 
     <h3 class='card-type-deck-title'>Creature</h3>
