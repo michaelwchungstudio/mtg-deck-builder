@@ -1,5 +1,4 @@
-<h1>Decks#show</h1>
-<br>
+
 <h2>deck name: <%= @deck.name %></h2>
 <br>
 <br>
@@ -16,7 +15,11 @@
     <div id='hover-card-image'></div>
   </div>
 </div>
-
+<% if user_signed_in? %>
+  <% if current_user.id == @deck.user_id %>
+   <div> <%= link_to "Edit this deck", edit_user_deck_path %></div>
+  <% end %>
+<% end %>
 <script type="text/javascript">
   var hoverCard = document.getElementById('hover-card-image');
   var cardsInDeck = document.getElementsByClassName('card-in-deck');
