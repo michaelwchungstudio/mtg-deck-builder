@@ -41,7 +41,8 @@ class DecksController < ApplicationController
 
     @deck.save
 
-    redirect_to "/users/#{@user.id}/decks/#{@deck.id}/edit/1"
+    redirect_back(fallback_location: root_path)
+    #redirect_to "/users/#{@user.id}/decks/#{@deck.id}/edit/1"
   end
 
   def edit
@@ -68,7 +69,7 @@ class DecksController < ApplicationController
     #@pagenum will hold the number and be edited on the webpage for link usage
     @pagenum = params[:page_num]
     #@cards will display all the cards in the game based on the page number and how many we want to display.
-    @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
+    @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtypes: params[:creature_type].to_s).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
 
   end
 
@@ -80,8 +81,8 @@ class DecksController < ApplicationController
 
     #the redirect page starts the template for how searches will be parsed by the controllers next action.
     #we'll decrypt the search with a chomp function and go from there.
-    redirect_to "/users/#{ @user.id }/decks/#{params[:deck_id]}/result/#{params[:card_name].to_s}%/#{params[:card_color].to_s}%/#{params[:card_type].to_s}%/#{params[:creature_type].to_s}%/#{params[:set].to_s}%/1"
-    #redirect_back(fallback_location: root_path)
+    redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/result/#{params[:card_name].to_s}%/#{params[:card_color].to_s}%/#{params[:card_type].to_s}%/#{params[:creature_type].to_s}%/#{params[:set].to_s}%/1"
+
   end
 
   def result
@@ -91,9 +92,83 @@ class DecksController < ApplicationController
     @search_type = params[:search_type].chomp('%')
     @search_creature = params[:search_creature].chomp('%')
     @search_set = params[:search_set].chomp('%')
+    @deck = Deck.where(id: params[:id]).first
+    @user = current_user
+    @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtypes: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
 
+    @deck_card_names = []
+    @deck_card_images = []
+
+    deck_card_list_array = @deck.cardlist.split(",")
+    p deck_card_list_array
+
+    deck_card_list_array.each do |card|
+      specific_card = MTG::Card.find(card)
+      @deck_card_names.push(specific_card.name)
+      @deck_card_images.push(specific_card.image_url)  
+    end
+    p @deck_card_images
     @pagenum = params[:page_num]
-    @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtype: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
+
+
+  end
+
+  def show
+
+    require 'set'
+
+    @deck = Deck.find(params[:id])
+
+    # this repeats from edit action - perhaps create custom func (needs more DRY)
+
+    @deck_card_names = []
+
+    @deck_card_images = []
+
+
+
+    deck_card_list_array = @deck.cardlist.split(",")
+
+    @card_list_hash = Hash.new(0)
+
+
+
+    deck_card_list_array.each do |card_id|
+
+      if specific_card = MTG::Card.find(card_id)
+
+        @deck_card_names.push(specific_card.name)
+
+        @deck_card_images.push(specific_card.image_url)
+
+      end
+
+    end
+
+
+
+    @image_set = Set.new(@deck_card_images)
+
+    @image_set_string = ""
+
+
+
+    @deck_card_names.each do |cardname|
+
+      @card_list_hash[cardname] += 1
+
+    end
+
+
+
+    @image_set.each do |imagelink|
+
+      @image_set_string += (imagelink + ",")
+
+    end
+
+
+
   end
 
   def show
