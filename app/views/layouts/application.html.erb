@@ -11,19 +11,29 @@
 
   <body>
 
-    <nav>
-      <li><a href="/" class='logotext'>Home</a></li>
+    <!-- Page Wrapper -->
+    <div class='page-wrapper'>
 
-      <% if user_signed_in? %>
-        <li><%= link_to 'Profile', user_profile_path(current_user) %></li>
-        <li><%= link_to 'New Deck', new_user_deck_path(current_user) %></li>
-        <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete%></li>
-      <% else %>
-        <li><a href="/users/sign_in">Log In</a></li>
-        <li><a href="/users/sign_up">Sign Up</a></li>
-      <% end %>
-    </nav>
+      <!-- Navigation Bar -->
+      <nav>
+        <ul>
+          <li><a href="/"><div id="mtglogo"></div></a></li>
 
-    <%= yield %>
+          <% if user_signed_in? %>
+            <li><%= link_to 'PROFILE', user_profile_path(current_user), :class => "navtextlink" %></li>
+            <li><%= link_to 'NEW DECK', new_user_deck_path(current_user), :class => "navtextlink" %></li>
+            <li><%= link_to 'SIGN OUT', destroy_user_session_path, method: :delete, :class => "navtextlink" %></li>
+          <% else %>
+            <li><a href="/users/sign_in" class="navtextlink">LOG IN</a></li>
+            <li><a href="/users/sign_up" class="navtextlink">SIGN UP</a></li>
+          <% end %>
+        </ul>
+      </nav>
+
+      <!-- Content Area -->
+      <div class='main-content'>
+        <%= yield %>
+      </div>
+
   </body>
 </html>

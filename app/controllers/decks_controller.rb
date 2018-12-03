@@ -70,16 +70,19 @@ class DecksController < ApplicationController
     @pagenum = params[:page_num]
     #@cards will display all the cards in the game based on the page number and how many we want to display.
     @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtypes: params[:creature_type].to_s).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
+
   end
 
   def search
     @deck = Deck.where(id: params[:deck_id]).first
-    @user = User.where(id: params[:user_id]).first
+
+    @user = current_user
     #@cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
 
     #the redirect page starts the template for how searches will be parsed by the controllers next action.
     #we'll decrypt the search with a chomp function and go from there.
     redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/result/#{params[:card_name].to_s}%/#{params[:card_color].to_s}%/#{params[:card_type].to_s}%/#{params[:creature_type].to_s}%/#{params[:set].to_s}%/1"
+
   end
 
   def result
@@ -165,6 +168,38 @@ class DecksController < ApplicationController
     end
 
 
+
+  end
+
+  def show
+    require 'set'
+
+    @deck = Deck.find(params[:id])
+
+    # this repeats from edit action - perhaps create custom func (needs more DRY)
+    @deck_card_names = []
+    @deck_card_images = []
+
+    deck_card_list_array = @deck.cardlist.split(",")
+    @card_list_hash = Hash.new(0)
+
+    deck_card_list_array.each do |card_id|
+      if specific_card = MTG::Card.find(card_id)
+        @deck_card_names.push(specific_card.name)
+        @deck_card_images.push(specific_card.image_url)
+      end
+    end
+
+    @image_set = Set.new(@deck_card_images)
+    @image_set_string = ""
+
+    @deck_card_names.each do |cardname|
+      @card_list_hash[cardname] += 1
+    end
+
+    @image_set.each do |imagelink|
+      @image_set_string += (imagelink + ",")
+    end
 
   end
 
