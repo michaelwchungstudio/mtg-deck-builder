@@ -1,3 +1,63 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.home-content-wrapper {
+  height: 100%;
+  width: 98%;
+  margin: 0 auto;
+  padding: 15px 0;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-rows: 0.75fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+.outer-zoom {
+  border-radius: 5px;
+  border: 2px solid;
+  overflow: hidden;
+}
+
+.outer-zoom:first-child {
+  grid-column: 1 / 3;
+}
+
+.banner-image {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+.banner-image:hover {
+  transform: scale(1.15);
+}
+
+.motto-banner {
+  background-image: url('motto_banner.png');
+  background-size: cover;
+  background-position: 0 -125px;
+  scale: 1.1;
+  grid-column: 1 / 3;
+}
+
+.show-deck-banner {
+  background-image: url('deck_banner.jpg');
+  background-size: cover;
+  background-position: 0 -15px;
+}
+
+.sign-up-banner {
+  background-image: url('sign_up_banner.jpg');
+  background-size: cover;
+  background-position: 0 -65px;
+}
+
+.banner-title {
+  font-weight: normal;
+  font-size: 2.5em;
+}

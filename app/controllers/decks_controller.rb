@@ -69,6 +69,7 @@ class DecksController < ApplicationController
     @pagenum = params[:page_num]
     #@cards will display all the cards in the game based on the page number and how many we want to display.
     @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtype: params[:creature_type]).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
+
   end
 
   def search
