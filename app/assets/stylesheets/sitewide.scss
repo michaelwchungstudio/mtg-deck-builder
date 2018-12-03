@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica;
+  font-family: "Avenir";
   font-size: 16px;
 }
 
@@ -13,9 +13,46 @@
   grid-template-rows: 0.1fr 1fr;
 }
 
+// Custom Fonts
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Light.otf");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Roman.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Book.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Medium.otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Heavy.otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: font-url("AvenirLTStd-Black.otf");
+  font-weight: 700;
+}
+
 // Navigation Bar
 nav {
-  background-color: #F5E4B7;
+  background-color: #282828;
 
   // Left Logo - links to homepage
   #mtglogo {
@@ -26,6 +63,8 @@ nav {
     background-repeat: no-repeat;
     margin: 15px 0 20px 25px;
     margin-right: auto;
+
+    filter: invert(100%);
   }
 
   ul {
@@ -41,18 +80,19 @@ nav {
     }
 
     .navtextlink {
-      color: #706E64;
+      color: #D4D4D4;
       display: block;
       line-height: 3em;
       font-size: 1.1em;
-      font-weight: bold;
-      padding: 1.3em 2em;
+      font-weight: 600;
+      padding: 1.6em 2em 1.1em;
       text-decoration: none;
+      border-bottom: 5px solid transparent;
+      letter-spacing: 1px;
     }
 
     .navtextlink:hover {
-      color: #F5E4B7;
-      background-color: #706E64;
+      border-bottom: 5px solid #D4D4D4;
     }
   }
 }
