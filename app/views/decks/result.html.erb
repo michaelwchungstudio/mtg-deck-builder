@@ -295,7 +295,7 @@
 <div class='card-result-wrapper'>
     <% @cards.each_with_index do |card, i| %>
       <div class='card-result'>
-      	<% if card.image_url == nil %>
+      	<% if  @deck_card_images[i] == nil || @deck_card_images[i] == "nil" %>
         	<div class='card-image' style="background-image: url(<%= image_url('mtg_cardback.jpg')%>)"></div>
       	<% else %>
         	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
@@ -312,7 +312,7 @@
           <p class='card-set'><%= card.set_name %></p> 
           <p class='card-rarity'><%= card.rarity %></p>
           	<% if user_signed_in? %>
-	          <% if current_user.id == @deck.id %>
+	          <% if current_user.id == @deck.user_id %>
 		          <%= form_tag "/addcard", :name => "addCard" do %>
 		            <%= hidden_field_tag :deck_id, @deck.id %>
 		            <%= hidden_field_tag :user_id, current_user.id %>
@@ -330,11 +330,20 @@
   <div class='deck-list-wrapper'>
     <h2 class='deck-title'>Deck List</h2>
 		<% @deck_card_names.each_with_index do |c, i| %>
-		<% if  @deck_card_images[i] == nil %>
-			<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
-		<% else %>
-			<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
-		<% end %>
+			<% if  @deck_card_images[i] == nil %>
+				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
+			<% else %>
+				<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
+			<% end %>
+			<% if user_signed_in? %>
+	        	<% if current_user.id == @deck.user_id %>
+					<%= form_tag "/remove_card" , :name => "removeCard" do %>
+						<%= hidden_field_tag :card_index, i %>
+						<%= hidden_field_tag :deck_id, @deck.id %>
+						<input type="submit" value="remove card">
+					<% end %>
+				<% end %>
+			<% end %>
 		<% end %>
 
     <h3 class='card-type-deck-title'>Creature</h3>

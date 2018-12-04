@@ -32,11 +32,20 @@ class DecksController < ApplicationController
   def addCardToDeck
     @user = current_user
     card_id = params[:card_id]
+    card = MTG::Card.where(id: card_id).all
+    card = card[0]
     deck_id = params[:deck_id]
 
     @deck = Deck.find(deck_id)
 
     @deck.cardlist += (card_id + ",")
+    @deck.cardtypes += (card.type + ",")
+    if card.image_url != nil
+      @deck.imageurls += (card.image_url + ",")
+    else
+      @deck.imageurls += ("nil,")
+    end
+    @deck.cardnames += (card.name + ",")
 
     @deck.save
 
@@ -48,15 +57,22 @@ class DecksController < ApplicationController
     @deck = Deck.where(id: params[:id]).first
     @user = current_user
 
+
+    @deck_card_names = @deck.cardnames.split(",")
+    @deck_card_images = @deck.imageurls.split(",")
+
+    deck_card_list_array = @deck.cardlist.split(",")
+
+    # deck_card_list_array.each do |card_id|
+    #   specific_card = MTG::Card.find(card_id)
+    #   @deck_card_names.push(specific_card.name)
+    #   @deck_card_images.push(specific_card.image_url)
+    # end
     @card_list_hash = parseDeckToHash(@deck)
     @image_set_string = parseDeckImages(@deck)
     @image_set_array = @image_set_string.split(",")
 
-    if params[:id] == nil #was having some issues with grabbing the deck id. So installed if statement to solve it.
-      @deck = Deck.where(id: params[:deck_id]).first
-    else
-      @deck = Deck.where(id: params[:id]).first
-    end
+
     @user = User.where(id: params[:user_id]).first
     #@pagenum will hold the number and be edited on the webpage for link usage
     @pagenum = params[:page_num]
@@ -88,30 +104,82 @@ class DecksController < ApplicationController
     @user = current_user
     @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtypes: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
 
-    @deck_card_names = []
-    @deck_card_images = []
+    @deck_card_names = @deck.cardnames.split(",")
+    @deck_card_images = @deck.imageurls.split(",")
 
     deck_card_list_array = @deck.cardlist.split(",")
-    p deck_card_list_array
 
-    deck_card_list_array.each do |card|
-      specific_card = MTG::Card.find(card)
-      @deck_card_names.push(specific_card.name)
-      @deck_card_images.push(specific_card.image_url)
-    end
-    p @deck_card_images
+    p @deck_card_names
+
+    # deck_card_list_array.each do |card|
+    #   specific_card = MTG::Card.find(card)
+    #   @deck_card_names.push(specific_card.name)
+    #   @deck_card_images.push(specific_card.image_url)  
+    # end
+    # p @deck_card_images
+
     @pagenum = params[:page_num]
 
   end
 
   def show
+    require 'set'
+
+    @deck = Deck.find(params[:id])
+
+    # this repeats from edit action - perhaps create custom func (needs more DRY)
+    @deck_card_names = @deck.cardnames.split(',')
+    @deck_card_images = @deck.imageurls.split(',')
+
+    deck_card_list_array = @deck.cardlist.split(",")
+    @card_list_hash = Hash.new(0)
+
+    # deck_card_list_array.each do |card_id|
+    #   if specific_card = MTG::Card.find(card_id)
+    #     @deck_card_names.push(specific_card.name)
+    #     @deck_card_images.push(specific_card.image_url)
+    #   end
+    # end
+
+    @image_set = Set.new(@deck_card_images)
+    @image_set_string = ""
+
+    @deck_card_names.each do |cardname|
+      @card_list_hash[cardname] += 1
+    end
+
+    @image_set.each do |imagelink|
+      @image_set_string += (imagelink + ",")
+    end
+  end
+
+
+  def removeCardFromDeck
+    @deck = Deck.where(id: params[:deck_id]).first
+
+    cardlist = @deck.cardlist.split(',')
+    cardname = @deck.cardnames.split(',')
+    cardimage = @deck.imageurls.split(',')
+    cardtype = @deck.cardtypes.split(',')
+
+    cardlist.delete_at(params[:card_index].to_i)
+    cardname.delete_at(params[:card_index].to_i)
+    cardimage.delete_at(params[:card_index].to_i)
+    cardtype.delete_at(params[:card_index].to_i)
+
+    @deck.update(cardlist: cardlist.join(",") , cardnames: cardname.join(','), imageurls: cardimage.join(","), cardtypes: cardtype.join(","))
+
+    redirect_back(fallback_location: root_path)
+  end
+
+
+  def update
+  end
+
     @deck = Deck.find(params[:id])
 
     @card_list_hash = parseDeckToHash(@deck)
     @image_set_string = parseDeckImages(@deck)
-  end
-
-  def update
   end
 
   def destroy
@@ -171,12 +239,13 @@ class DecksController < ApplicationController
     deck_cardlist_array = mtgdeck.cardlist.split(",")
     deck_cardtype_array = []
 
+
   end
 
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :cardlist, :user_id)
+    params.require(:deck).permit(:name, :cardlist, :user_id, :imageurls, :cardtypes, :cardnames)
   end
 
 end

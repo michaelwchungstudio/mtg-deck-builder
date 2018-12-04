@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get "/decks" => "decks#index"
 
+  post "/remove_card" => 'decks#removeCardFromDeck'
+
 
   post "/addcard" => "decks#addCardToDeck", :as => :add_card
 
