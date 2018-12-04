@@ -47,7 +47,7 @@ class DecksController < ApplicationController
     else
       @deck.imageurls += ("nil,")
     end
-    @deck.cardnames += (card.name + ",")
+    @deck.cardnames += (card.name + "%")
 
     @deck.save
 
@@ -60,7 +60,7 @@ class DecksController < ApplicationController
     @user = current_user
 
 
-    @deck_card_names = @deck.cardnames.split(",")
+    @deck_card_names = @deck.cardnames.split("%")
     @deck_card_images = @deck.imageurls.split(",")
 
     deck_card_list_array = @deck.cardlist.split(",")
@@ -106,7 +106,7 @@ class DecksController < ApplicationController
     @user = current_user
     @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtypes: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
 
-    @deck_card_names = @deck.cardnames.split(",")
+    @deck_card_names = @deck.cardnames.split("%")
     @deck_card_images = @deck.imageurls.split(",")
 
     deck_card_list_array = @deck.cardlist.split(",")
@@ -130,7 +130,7 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:id])
 
     # this repeats from edit action - perhaps create custom func (needs more DRY)
-    @deck_card_names = @deck.cardnames.split(',')
+    @deck_card_names = @deck.cardnames.split('%')
     @deck_card_images = @deck.imageurls.split(',')
 
     deck_card_list_array = @deck.cardlist.split(",")
@@ -160,7 +160,7 @@ class DecksController < ApplicationController
     @deck = Deck.where(id: params[:deck_id]).first
 
     cardlist = @deck.cardlist.split(',')
-    cardname = @deck.cardnames.split(',')
+    cardname = @deck.cardnames.split('%')
     cardimage = @deck.imageurls.split(',')
     cardtype = @deck.cardtypes.split(',')
 
@@ -169,7 +169,7 @@ class DecksController < ApplicationController
     cardimage.delete_at(params[:card_index].to_i)
     cardtype.delete_at(params[:card_index].to_i)
 
-    @deck.update(cardlist: cardlist.join(",") , cardnames: cardname.join(','), imageurls: cardimage.join(","), cardtypes: cardtype.join(","))
+    @deck.update(cardlist: cardlist.join(",") , cardnames: cardname.join('%'), imageurls: cardimage.join(","), cardtypes: cardtype.join(","))
 
     redirect_back(fallback_location: root_path)
   end
@@ -190,7 +190,7 @@ class DecksController < ApplicationController
   # Custom functions for specific data retrieval
   def parseDeckToHash(mtgdeck)
     deck_cardlist_array = mtgdeck.cardlist.split(",")
-    deck_cardlist_names = mtgdeck.cardnames.split(",")
+    deck_cardlist_names = mtgdeck.cardnames.split("%")
     deck_cardlist_types = mtgdeck.cardtypes.split(",")
     deck_hash = Hash.new{ |h, k| h[k] = [0, ""] }
 
