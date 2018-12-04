@@ -2,6 +2,8 @@ class DecksController < ApplicationController
 
   # ? - Manny's variable (?)
   $set = MTG::Set.all
+  $type = MTG::Type.all
+  $creaturetype = MTG::Subtype.all
 
   # List of all decks with the corresponding user creator
   # Clicking a deck leads to that deck's show page
@@ -175,12 +177,12 @@ class DecksController < ApplicationController
 
   def update
   end
+  # def something
+  #   @deck = Deck.find(params[:id])
 
-    @deck = Deck.find(params[:id])
-
-    @card_list_hash = parseDeckToHash(@deck)
-    @image_set_string = parseDeckImages(@deck)
-  end
+  #   @card_list_hash = parseDeckToHash(@deck)
+  #   @image_set_string = parseDeckImages(@deck)
+  # end
 
   def destroy
   end
@@ -188,16 +190,10 @@ class DecksController < ApplicationController
   # Custom functions for specific data retrieval
   def parseDeckToHash(mtgdeck)
     deck_cardlist_array = mtgdeck.cardlist.split(",")
-    deck_cardlist_names = []
-    deck_cardlist_types = []
+    deck_cardlist_names = mtgdeck.cardnames.split(",")
+    deck_cardlist_types = mtgdeck.cardtypes.split(",")
     deck_hash = Hash.new{ |h, k| h[k] = [0, ""] }
 
-    deck_cardlist_array.each do |card_id|
-      if specific_card = MTG::Card.find(card_id)
-        deck_cardlist_names.push(specific_card.name)
-        deck_cardlist_types.push(specific_card.type)
-      end
-    end
 
     deck_cardlist_names.each_with_index do |cname, i|
         deck_hash[cname][0] += 1
@@ -214,13 +210,9 @@ class DecksController < ApplicationController
     require 'set'
 
     deck_cardlist_array = mtgdeck.cardlist.split(",")
-    deck_cardlist_images = []
+    deck_cardlist_images = mtgdeck.imageurls.split(",")
 
-    deck_cardlist_array.each do |card_id|
-      if specific_card = MTG::Card.find(card_id)
-        deck_cardlist_images.push(specific_card.image_url)
-      end
-    end
+
 
     image_set = Set.new(deck_cardlist_images)
     image_set_string = ""
