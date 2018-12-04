@@ -1,4 +1,6 @@
 class DecksController < ApplicationController
+  require 'faraday'
+  require 'json'
 
   # ? - Manny's variable (?)
   $set = MTG::Set.all
@@ -56,6 +58,8 @@ class DecksController < ApplicationController
   end
 
   def edit
+    appID = "kylehamp-magic-PRD-660bef6c5-3442e159"
+
     @deck = Deck.where(id: params[:id]).first
     @user = current_user
 
@@ -81,6 +85,29 @@ class DecksController < ApplicationController
     #@cards will display all the cards in the game based on the page number and how many we want to display.
     @cards = MTG::Card.where(name: params[:card_name]).where(colors: params[:card_color]).where(type: params[:card_type]).where(subtypes: params[:creature_type].to_s).where(set: params[:set]).where(page: params[:page_num]).where(pageSize: 9).all
 
+    @card_price = []
+
+    #ebay functionality
+    for card in @cards
+
+    searchTerm = card.name
+    ebay = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=' + appID +'&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter.paramName=Currency&itemFilter.paramValue=USD&keywords=' + searchTerm
+
+    faraday = Faraday.new(url: ebay) do |f|
+                f.request :url_encoded
+                f.adapter :net_http
+                f.headers['Content-Type'] = 'application/json'
+                end
+
+    response = faraday.get()
+
+    p response.status
+    # p response.body
+    # p response.status
+    value = JSON.parse(response.body)
+
+   @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+    end
   end
 
   def search
@@ -116,7 +143,7 @@ class DecksController < ApplicationController
     # deck_card_list_array.each do |card|
     #   specific_card = MTG::Card.find(card)
     #   @deck_card_names.push(specific_card.name)
-    #   @deck_card_images.push(specific_card.image_url)  
+    #   @deck_card_images.push(specific_card.image_url)
     # end
     # p @deck_card_images
 
