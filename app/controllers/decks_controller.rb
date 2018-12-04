@@ -59,7 +59,6 @@ class DecksController < ApplicationController
     @deck = Deck.where(id: params[:id]).first
     @user = current_user
 
-
     @deck_card_names = @deck.cardnames.split(",")
     @deck_card_images = @deck.imageurls.split(",")
 
@@ -73,7 +72,6 @@ class DecksController < ApplicationController
     @card_list_hash = parseDeckToHash(@deck)
     @image_set_string = parseDeckImages(@deck)
     @image_set_array = @image_set_string.split(",")
-
 
     @user = User.where(id: params[:user_id]).first
     #@pagenum will hold the number and be edited on the webpage for link usage
@@ -112,11 +110,12 @@ class DecksController < ApplicationController
     deck_card_list_array = @deck.cardlist.split(",")
 
     p @deck_card_names
+    p @deck_card_images
 
     # deck_card_list_array.each do |card|
     #   specific_card = MTG::Card.find(card)
     #   @deck_card_names.push(specific_card.name)
-    #   @deck_card_images.push(specific_card.image_url)  
+    #   @deck_card_images.push(specific_card.image_url)
     # end
     # p @deck_card_images
 
@@ -125,36 +124,13 @@ class DecksController < ApplicationController
   end
 
   def show
-    require 'set'
-
     @deck = Deck.find(params[:id])
 
-    # this repeats from edit action - perhaps create custom func (needs more DRY)
-    @deck_card_names = @deck.cardnames.split(',')
-    @deck_card_images = @deck.imageurls.split(',')
+    @card_list_hash = parseDeckToHash(@deck)
+    @image_set_string = parseDeckImages(@deck)
 
-    deck_card_list_array = @deck.cardlist.split(",")
-    @card_list_hash = Hash.new(0)
-
-    # deck_card_list_array.each do |card_id|
-    #   if specific_card = MTG::Card.find(card_id)
-    #     @deck_card_names.push(specific_card.name)
-    #     @deck_card_images.push(specific_card.image_url)
-    #   end
-    # end
-
-    @image_set = Set.new(@deck_card_images)
-    @image_set_string = ""
-
-    @deck_card_names.each do |cardname|
-      @card_list_hash[cardname] += 1
-    end
-
-    @image_set.each do |imagelink|
-      @image_set_string += (imagelink + ",")
-    end
+    p @card_list_hash
   end
-
 
   def removeCardFromDeck
     @deck = Deck.where(id: params[:deck_id]).first
@@ -192,12 +168,18 @@ class DecksController < ApplicationController
     deck_cardlist_array = mtgdeck.cardlist.split(",")
     deck_cardlist_names = mtgdeck.cardnames.split(",")
     deck_cardlist_types = mtgdeck.cardtypes.split(",")
+    deck_cardlist_images = mtgdeck.imageurls.split(",")
     deck_hash = Hash.new{ |h, k| h[k] = [0, ""] }
-
 
     deck_cardlist_names.each_with_index do |cname, i|
         deck_hash[cname][0] += 1
         deck_hash[cname][1] = deck_cardlist_types[i]
+
+        if deck_cardlist_images[i] == "nil"
+          deck_hash[cname][2] = '/assets/mtg_cardback.jpg'
+        else
+          deck_hash[cname][2] = deck_cardlist_images[i]
+        end
     end
 
     puts deck_hash
@@ -211,8 +193,6 @@ class DecksController < ApplicationController
 
     deck_cardlist_array = mtgdeck.cardlist.split(",")
     deck_cardlist_images = mtgdeck.imageurls.split(",")
-
-
 
     image_set = Set.new(deck_cardlist_images)
     image_set_string = ""
