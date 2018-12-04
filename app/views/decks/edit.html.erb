@@ -16,15 +16,15 @@
 
 	<div>
 	    Types:
-		
+
 			<%=select_tag "card_type", options_from_collection_for_select($type, "to_s" , "to_s" ),{:include_blank => 'Type list'} %>
     </div>
     <div>
 	    Creature Type:
-		
+
 			<%=select_tag "creature_type", options_from_collection_for_select($creaturetype, 'to_s', 'to_s'),{:include_blank => 'Creature Type list'} %>
     </div>
-	
+
 	<div>
 	    Set:
 			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
@@ -55,6 +55,7 @@
           	<% end %>
           <p class='card-set'><%= card.set_name %></p>
           <p class='card-rarity'><%= card.rarity %></p>
+					<p>$<%= @card_price[i]%></p>
           	<% if user_signed_in? %>
 	            <% if current_user.id == @deck.user_id %>
 			          <%= form_tag "/addcard", :name => "addCard" do %>
