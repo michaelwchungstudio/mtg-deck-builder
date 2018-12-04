@@ -251,6 +251,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  faraday
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mtg_sdk
