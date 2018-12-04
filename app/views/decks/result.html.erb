@@ -38,7 +38,7 @@
 <div class='card-result-wrapper'>
     <% @cards.each_with_index do |card, i| %>
     <div class='card-result'>
-      	<% if  @deck_card_images[i] == nil || @deck_card_images[i] == "nil" %>
+      	<% if  card.image_url == nil  %>
         	<div class='card-image' style="background-image: url(<%= image_url('mtg_cardback.jpg')%>)"></div>
       	<% else %>
         	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
@@ -73,7 +73,7 @@
   <div class='deck-list-wrapper'>
     <h2 class='deck-title'>Deck List</h2>
 		<% @deck_card_names.each_with_index do |c, i| %>
-			<% if  @deck_card_images[i] == nil %>
+			<% if  @deck_card_images[i] == nil || @deck_card_images[i] == "nil" %>
 				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
 			<% else %>
 				<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
