@@ -1,39 +1,75 @@
-
-<h2>deck name: <%= @deck.name %></h2>
-<br>
-<br>
-<% creature = {} %>
-<% sorcery = {} %>
-<% instant = {} %>
-<% artifact = {} %>
-<% enchantment = {} %>
-<% lands = {} %>
-<% misc = {} %>
+<!-- Split Cardlist Hash into Types Hashes -->
+<!-- Each type has a hash for card name => array of card information -->
+<!-- Each type has an array for image_urls (for hover JS event listeners) -->
+<% deck_creatures = {} %>
+<% creature_images = [] %>
+<% deck_sorceries = {} %>
+<% sorcery_images = [] %>
+<% deck_instants = {} %>
+<% instant_images = [] %>
+<% deck_artifacts = {} %>
+<% artifact_images = [] %>
+<% deck_enchantments = {} %>
+<% enchantment_images = [] %>
+<% deck_lands = {} %>
+<% land_images = [] %>
+<% deck_misc = {} %>
+<% misc_images = [] %>
 
 <% @card_list_hash.each do |cardname, array| %>
     <% if array[1].include?('Creature')%>
-      <% creature[cardname] = array %>
+      <% deck_creatures[cardname] = array %>
     <% elsif array[1].include?('Sorcery')%>
-      <% sorcery[cardname] = array %>
+      <% deck_sorceries[cardname] = array %>
     <% elsif array[1].include?('Instant')%>
-      <% instant[cardname] = array %>
+      <% deck_instants[cardname] = array %>
     <% elsif array[1].include?('Enchantment')%>
-      <% enchantment[cardname] = array %>
+      <% deck_enchantments[cardname] = array %>
     <% elsif array[1].include?('Land')%>
-      <% lands[cardname] = array %>
+      <% deck_lands[cardname] = array %>
     <% elsif array[1].include?('Artifact')%>
-      <% artifact[cardname] = array %>
+      <% deck_artifacts[cardname] = array %>
     <% else %>
-      <% misc[cardname] = array %>
+      <% deck_misc[cardname] = array %>
     <% end %>
 <% end %>
+
+<% deck_creatures.each do |cardname, array| %>
+  <% creature_images.push(array[2]) %>
+<% end %>
+
+<% deck_sorceries.each do |cardname, array| %>
+  <% sorcery_images.push(array[2]) %>
+<% end %>
+
+<% deck_instants.each do |cardname, array| %>
+  <% instant_images.push(array[2]) %>
+<% end %>
+
+<% deck_enchantments.each do |cardname, array| %>
+  <% enchantment_images.push(array[2]) %>
+<% end %>
+
+<% deck_lands.each do |cardname, array| %>
+  <% land_images.push(array[2]) %>
+<% end %>
+
+<% deck_artifacts.each do |cardname, array| %>
+  <% artifact_images.push(array[2]) %>
+<% end %>
+
+<!-- HTML -->
+<h2>deck name: <%= @deck.name %></h2>
+<br>
+<br>
+
 <div class='show-deck-card-wrapper'>
   <div class='temp-left'>
     <h3>DECK LIST</h3>
     <h3 class='card-type-deck-title'>Creature</h3>
     <div class='creature-list type-list'>
       <% creature.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
+        <p class='creature-card-in-deck'><%= array[0] %>x - <%=name%></p>
       <% end %>
     </div>
     <h3 class='card-type-deck-title'>Sorcery</h3>
@@ -85,14 +121,16 @@
 <% end %>
 <script type="text/javascript">
   var hoverCard = document.getElementById('hover-card-image');
-  var cardsInDeck = document.getElementsByClassName('card-in-deck');
-  var cardImages = "<%= raw @image_set_string %>";
-  var cardImagesArray = cardImages.split(",")
+  var creatureCardsInDeck = document.getElementsByClassName('creature-card-in-deck');
+  var creatureCardsImages = "<%= raw creature_images.join(",") %>"
+  var creatureCardsImagesArray = creatureCardsImages.split(",")
 
-  for(let i = 0; i < cardsInDeck.length; i++) {
-    cardsInDeck[i].addEventListener('mouseover', function() {
-      hoverCard.style.backgroundImage = `url(${cardImagesArray[i]})`;
+  for(let i = 0; i < creatureCardsInDeck.length; i++) {
+    creatureCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${creatureCardsImagesArray[i]})`;
     })
   }
+
+
 
 </script>
