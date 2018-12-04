@@ -74,30 +74,21 @@
   <div class='deck-list-wrapper'>
     <h2 class='deck-title'>Deck List</h2>
 
-		<% @deck_card_names.each_with_index do |c, i| %>
-			<% if  @deck_card_images[i] == nil || @deck_card_images[i] == "nil" %>
-				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
+		<% @card_list_hash.each_with_index do |(cname, array), i| %>
+			<% if @image_set_array[i] == nil %>
+				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= array[0].to_s + "x - " + cname %></div>
 			<% else %>
-				<div class='deck-list-card' style="background-image: url(<%= @deck_card_images[i] %>)"><%= c %></div>
+				<div class='deck-list-card' style="background-image: url(<%= @image_set_array[i] %>)"><%= array[0].to_s + "x - " + cname %></div>
 			<% end %>
 			<% if user_signed_in? %>
-	          	<% if current_user.id == @deck.user_id %>
+	      <% if current_user.id == @deck.user_id %>
 					<%= form_tag "/remove_card" , :name => "removeCard" do %>
-						<%= hidden_field_tag :card_index, i %>
+						<%= hidden_field_tag :card_name, cname %>
 						<%= hidden_field_tag :deck_id, @deck.id %>
 						<input type="submit" value="remove card">
 					<% end %>
 				<% end %>
 			<% end %>
-		<% end %>
-
-		<% @card_list_hash.each_with_index do |(cname, num), i| %>
-			<% if @image_set_array[i] == nil %>
-				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= num.to_s + "x - " + cname %></div>
-			<% else %>
-				<div class='deck-list-card' style="background-image: url(<%= @image_set_array[i] %>)"><%= num.to_s + "x - " + cname %></div>
-			<% end %>
-
 		<% end %>
 
     <h3 class='card-type-deck-title'>Creature</h3>

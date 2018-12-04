@@ -58,79 +58,166 @@
   <% artifact_images.push(array[2]) %>
 <% end %>
 
+<% deck_misc.each do |cardname, array| %>
+  <% misc_images.push(array[2]) %>
+<% end %>
+
 <!-- HTML -->
-<h2>deck name: <%= @deck.name %></h2>
-<br>
-<br>
+<div class='content-wrapper'>
+  <h2 class='content-title'><%= @deck.name %></h2>
 
-<div class='show-deck-card-wrapper'>
-  <div class='temp-left'>
-    <h3>DECK LIST</h3>
-    <h3 class='card-type-deck-title'>Creature</h3>
-    <div class='creature-list type-list'>
-      <% creature.each do |name, array| %>
-        <p class='creature-card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
+  <div class='show-deck-card-wrapper'>
+    <div class='left-col'>
+      <h3 class='deck-list-sec-title'>Deck List</h3>
+      <div class='col-1'>
+        <% if deck_creatures.length != 0 %>
+          <h3 class='card-type-deck-title'>Creature</h3>
+        <% end %>
+        <div class='creature-list type-list'>
+          <% deck_creatures.each do |name, array| %>
+            <p class='creature-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+        <% if deck_artifacts.length != 0 %>
+          <h3 class='card-type-deck-title'>Artifacts</h3>
+        <% end %>
+        <div class='artifact-list type-list'>
+          <% deck_artifacts.each do |name, array| %>
+            <p class='artifact-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+        <% if deck_enchantments.length != 0 %>
+          <h3 class='card-type-deck-title'>Enchantments</h3>
+        <% end %>
+        <div class='enchantment-list type-list'>
+          <% deck_enchantments.each do |name, array| %>
+            <p class='enchantment-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-2'>
+        <% if deck_sorceries.length != 0 %>
+          <h3 class='card-type-deck-title'>Sorcery</h3>
+        <% end %>
+        <div class='sorcery-list type-list'>
+          <% deck_sorceries.each do |name, array| %>
+            <p class='sorcery-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+        <% if deck_instants.length != 0 %>
+          <h3 class='card-type-deck-title'>Instant</h3>
+        <% end %>
+        <div class='instant-list type-list'>
+          <% deck_instants.each do |name, array| %>
+            <p class='instant-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-3'>
+        <% if deck_lands.length != 0 %>
+          <h3 class='card-type-deck-title'>Lands</h3>
+        <% end %>
+        <div class='lands-list type-list'>
+          <% deck_lands.each do |name, array| %>
+            <p class='land-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+        <% if deck_misc.length != 0 %>
+          <h3 class='card-type-deck-title'>Misc.</h3>
+        <% end %>
+        <div class='misc-list type-list'>
+          <% deck_misc.each do |name, array| %>
+            <p class='misc-card-in-deck card-in-deck'><%= array[0] %>x - <%=name%></p>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <h3 class='card-type-deck-title'>Sorcery</h3>
-    <div class='sorcery-list type-list'>
-      <% sorcery.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
+    <div class='right-col'>
+      <div id='hover-card-image'></div>
     </div>
-    <h3 class='card-type-deck-title'>Instant</h3>
-    <div class='instant-list type-list'>
-      <% instant.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
-    </div>
-    <h3 class='card-type-deck-title'>Artifacts</h3>
-    <div class='artifact-list type-list'>
-      <% artifact.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
-    </div>
-    <h3 class='card-type-deck-title'>Enchantments</h3>
-    <div class='enchantment-list type-list'>
-      <% enchantment.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
-    </div>
-    <h3 class='card-type-deck-title'>Lands</h3>
-    <div class='lands-list type-list'>
-      <% lands.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
-    </div>
-    <h3 class='card-type-deck-title'>Misc.</h3>
-    <div class='misc-list type-list'>
-      <% misc.each do |name, array| %>
-        <p class='card-in-deck'><%= array[0] %>x - <%=name%></p>
-      <% end %>
-    </div>
-
   </div>
-  <div class='temp-right'>
-    <div id='hover-card-image'></div>
+  <div class='center-align'>
+    <% if user_signed_in? %>
+      <% if current_user.id == @deck.user_id %>
+       <%= link_to "EDIT DECK", edit_user_deck_path, :class => "link-button" %>
+      <% end %>
+    <% end %>
   </div>
 </div>
-<% if user_signed_in? %>
-  <% if current_user.id == @deck.user_id %>
-   <div> <%= link_to "Edit this deck", edit_user_deck_path %></div>
-  <% end %>
-<% end %>
+
 <script type="text/javascript">
   var hoverCard = document.getElementById('hover-card-image');
   var creatureCardsInDeck = document.getElementsByClassName('creature-card-in-deck');
+  var sorceryCardsInDeck = document.getElementsByClassName('sorcery-card-in-deck');
+  var instantCardsInDeck = document.getElementsByClassName('instant-card-in-deck');
+  var artifactCardsInDeck = document.getElementsByClassName('artifact-card-in-deck');
+  var enchantmentCardsInDeck = document.getElementsByClassName('enchantment-card-in-deck');
+  var landCardsInDeck = document.getElementsByClassName('land-card-in-deck');
+  var miscCardsInDeck = document.getElementsByClassName('misc-card-in-deck');
+
+  // Convert Ruby arrays into JavaScript arrays
   var creatureCardsImages = "<%= raw creature_images.join(",") %>"
   var creatureCardsImagesArray = creatureCardsImages.split(",")
+  var sorceryCardsImages = "<%= raw sorcery_images.join(",") %>"
+  var sorceryCardsImagesArray = sorceryCardsImages.split(",")
+  var instantCardsImages = "<%= raw instant_images.join(",") %>"
+  var instantCardsImagesArray = instantCardsImages.split(",")
+  var artifactCardsImages = "<%= raw artifact_images.join(",") %>"
+  var artifactCardsImagesArray = artifactCardsImages.split(",")
+  var enchantmentCardsImages = "<%= raw enchantment_images.join(",") %>"
+  var enchantmentCardsImagesArray = enchantmentCardsImages.split(",")
+  var landCardsImages = "<%= raw land_images.join(",") %>"
+  var landCardsImagesArray = landCardsImages.split(",")
+  var miscCardsImages = "<%= raw misc_images.join(",") %>"
+  var miscCardsImagesArray = miscCardsImages.split(",")
 
+  // Creature card event listeners
   for(let i = 0; i < creatureCardsInDeck.length; i++) {
     creatureCardsInDeck[i].addEventListener('mouseover', function() {
       hoverCard.style.backgroundImage = `url(${creatureCardsImagesArray[i]})`;
     })
   }
 
+  // Sorcery card event listeners
+  for(let i = 0; i < sorceryCardsInDeck.length; i++) {
+    sorceryCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${sorceryCardsImagesArray[i]})`;
+    })
+  }
 
+  // Instant card event listeners
+  for(let i = 0; i < instantCardsInDeck.length; i++) {
+    instantCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${instantCardsImagesArray[i]})`;
+    })
+  }
+
+  // Artifact card event listeners
+  for(let i = 0; i < artifactCardsInDeck.length; i++) {
+    artifactCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${artifactCardsImagesArray[i]})`;
+    })
+  }
+
+  // Enchantment card event listeners
+  for(let i = 0; i < enchantmentCardsInDeck.length; i++) {
+    enchantmentCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${enchantmentCardsImagesArray[i]})`;
+    })
+  }
+
+  // Land card event listeners
+  for(let i = 0; i < landCardsInDeck.length; i++) {
+    landCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${landCardsImagesArray[i]})`;
+    })
+  }
+
+  // Misc card event listeners
+  for(let i = 0; i < miscCardsInDeck.length; i++) {
+    miscCardsInDeck[i].addEventListener('mouseover', function() {
+      hoverCard.style.backgroundImage = `url(${miscCardsImagesArray[i]})`;
+    })
+  }
 
 </script>

@@ -1,9 +1,14 @@
+$dark-gray: #282828;
+$med-light-gray: #909090;
+$light-gray: #D4D4D4;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Avenir";
   font-size: 16px;
+  letter-spacing: 0.4px;
 }
 
 .page-wrapper {
@@ -99,5 +104,32 @@ nav {
 }
 
 .main-content {
-  background-color: #706E64;
+  background-color: #909090;
+}
+
+.content-title {
+  margin: 4rem 0 2.5rem 0;
+  font-size: 1.85em;
+  text-align: center;
+}
+
+.content-wrapper {
+  padding-bottom: 7.5rem;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.link-button {
+  border-radius: 20px;
+  text-decoration: none;
+  padding: 15px 20px;
+  background-color: #282828;
+  color: #D4D4D4;
+  transition: all 0.5s ease;
+}
+
+.link-button:hover {
+  filter: invert(100%);
 }

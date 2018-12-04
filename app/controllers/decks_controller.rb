@@ -131,20 +131,9 @@ class DecksController < ApplicationController
     @user = current_user
     @cards = MTG::Card.where(name: @search_name).where(colors: @search_color).where(type: @search_type).where(subtypes: @search_creature).where(set: @search_set).where(page: params[:page_num]).where(pageSize: 9).all
 
-    @deck_card_names = @deck.cardnames.split("%")
-    @deck_card_images = @deck.imageurls.split(",")
-
-    deck_card_list_array = @deck.cardlist.split(",")
-
-    p @deck_card_names
-    p @deck_card_images
-
-    # deck_card_list_array.each do |card|
-    #   specific_card = MTG::Card.find(card)
-    #   @deck_card_names.push(specific_card.name)
-    #   @deck_card_images.push(specific_card.image_url)
-    # end
-    # p @deck_card_images
+    @card_list_hash = parseDeckToHash(@deck)
+    @image_set_string = parseDeckImages(@deck)
+    @image_set_array = @image_set_string.split(",")
 
     @pagenum = params[:page_num]
 
@@ -167,13 +156,15 @@ class DecksController < ApplicationController
     cardimage = @deck.imageurls.split(',')
     cardtype = @deck.cardtypes.split(',')
 
-    cardlist.delete_at(params[:card_index].to_i)
-    cardname.delete_at(params[:card_index].to_i)
-    cardimage.delete_at(params[:card_index].to_i)
-    cardtype.delete_at(params[:card_index].to_i)
+    index = cardname.index(params[:card_name])
 
-    @deck.update(cardlist: cardlist.join(",") , cardnames: cardname.join('%'), imageurls: cardimage.join(","), cardtypes: cardtype.join(","))
+    cardlist.delete_at(index)
+    cardname.delete_at(index)
+    cardimage.delete_at(index)
+    cardtype.delete_at(index)
 
+    @deck.update(cardlist: cardlist.join(","), cardnames: cardname.join('%'), imageurls: cardimage.join(","), cardtypes: cardtype.join(","))
+    @deck.save
     redirect_back(fallback_location: root_path)
   end
 
