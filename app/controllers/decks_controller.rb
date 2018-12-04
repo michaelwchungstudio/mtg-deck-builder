@@ -45,7 +45,7 @@ class DecksController < ApplicationController
     if card.image_url != nil
       @deck.imageurls += (card.image_url + ",")
     else
-      @deck.imageurls += ("nil,")
+      @deck.imageurls += ("mtg_cardback.jpg,")
     end
     @deck.cardnames += (card.name + "%")
 

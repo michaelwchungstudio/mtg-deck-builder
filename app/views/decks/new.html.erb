@@ -1,15 +1,21 @@
-<h1>Decks#new</h1>
+<% if user_signed_in? %>
+	<div class="bothForms">
+		<h2>Create a new deck by entering the name for it and clicking Create Deck</h2>
+		the form to create a deck.
+		<%= form_for ([current_user , @deck]) do |d| %>
 
-<%= form_for ([current_user , @deck]) do |d| %>
+			<%= d.text_field  :name, placeholder: "Enter the name of the deck" %>
 
-<%= d.text_field  :name %>
+			<%= d.hidden_field :cardlist, :value => "" %>
+			<%= d.hidden_field :user_id, :value => current_user.id %>
+			<%= d.hidden_field :cardtypes, :value => "" %>
+			<%= d.hidden_field :imageurls, :value => "" %>
+			<%= d.hidden_field :cardnames, :value => "" %>
 
-<%= d.hidden_field :cardlist, :value => "" %>
-<%= d.hidden_field :user_id, :value => current_user.id %>
-<%= d.hidden_field :cardtypes, :value => "" %>
-<%= d.hidden_field :imageurls, :value => "" %>
-<%= d.hidden_field :cardnames, :value => "" %>
+			<%= d.submit  "Create a Deck" %>
 
-<%= d.submit %>
-
+		<% end %>
+	</div>
+<% else %>
+	<div> Please log in first to create a deck </div>
 <% end %>
