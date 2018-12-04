@@ -31,4 +31,4 @@
 /config/master.key
 
 #ignoring key
-/config/secrets.yml
+/config/secret.yml

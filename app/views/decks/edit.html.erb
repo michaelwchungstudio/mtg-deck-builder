@@ -1,9 +1,12 @@
 <!-- The page defaults to looking for all the cards in Magic -->
 <%= form_tag "/search", :name => "searchForm"  do %> <!-- this form does the search for the cards -->
-<div>
-	<div>Name: <input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
-	<div>
+<div class="searchForm">
+	<div class="search-word">Name: </div>
+	<div><input type="text" name="card_name" id="card_name" placeholder="Enter the name of the card"></div>
+	<div class="search-word">
 		Color:
+	</div>
+	<div>
 		<select id="card_color" name="card_color">
 			<option value="">Select a color</option>
 			<option value="Red">Red</option>
@@ -14,25 +17,29 @@
 		</select>
 	</div>
 
-	<div>
-	    Types:
-
-			<%=select_tag "card_type", options_from_collection_for_select($type, "to_s" , "to_s" ),{:include_blank => 'Type list'} %>
-    </div>
-    <div>
+    <div class="search-word">
 	    Creature Type:
-
+	</div>
+	<div>
 			<%=select_tag "creature_type", options_from_collection_for_select($creaturetype, 'to_s', 'to_s'),{:include_blank => 'Creature Type list'} %>
     </div>
 
-	<div>
+	<div class='search-word'>
 	    Set:
+	</div>
+	<div>
 			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
+    </div>
+	<div class="search-word">
+	    Types:
+	</div>
+	<div>
+			<%=select_tag "card_type", options_from_collection_for_select($type, "to_s" , "to_s" ),{:include_blank => 'Type list'} %>
     </div>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
     <input type="hidden" name="deck_id" value="<%= params[:id] %>">
     <input type="hidden" name="page_id" value="edit">
-    <input type="submit" id="search" value="Search">
+    <div class="search-button"><input type="submit" id="search" value="Search"></div>
 </div>
 <% end %>
 
