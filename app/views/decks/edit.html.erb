@@ -16,7 +16,7 @@
 	<div>
 	Type:
 	<select id="card_type" name="card_type">
-		<option value="">Pick a card type</option>	
+		<option value="">Pick a card type</option>
     	<option value="Artifacts">Artifacts </option>
     	<option value="Creatures">Creatures </option>
     	<option value="Enchantments">Enchantments </option>
@@ -282,7 +282,7 @@
 	</div>
 	<div>
 	    Set:
-		
+
 			<%=select_tag "set", options_from_collection_for_select($set, 'code', 'name'),{:include_blank => 'Set list'} %>
     </div>
     <input type="hidden" name="user_id" value="<%= current_user.id %>">
@@ -332,6 +332,7 @@
 
   <div class='deck-list-wrapper'>
     <h2 class='deck-title'>Deck List</h2>
+
 		<% @deck_card_names.each_with_index do |c, i| %>
 			<% if  @deck_card_images[i] == nil || @deck_card_images[i] == "nil" %>
 				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= c %></div>
@@ -347,6 +348,14 @@
 					<% end %>
 				<% end %>
 			<% end %>
+
+		<% @card_list_hash.each_with_index do |(cname, num), i| %>
+		<% if @image_set_array[i] == nil %>
+			<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= num.to_s + "x - " + cname %></div>
+		<% else %>
+			<div class='deck-list-card' style="background-image: url(<%= @image_set_array[i] %>)"><%= num.to_s + "x - " + cname %></div>
+		<% end %>
+
 		<% end %>
 
     <h3 class='card-type-deck-title'>Creature</h3>

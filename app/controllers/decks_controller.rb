@@ -7,8 +7,7 @@ class DecksController < ApplicationController
   # Clicking a deck leads to that deck's show page
   # Clicking a user leads to that user's profile page of his/her decks
   def index
-    @user = current_user
-    @decks = Deck.where(user_id: @user.id)
+    @decks = Deck.all
   end
 
   # Create a new deck - text input with a deck name
@@ -58,6 +57,7 @@ class DecksController < ApplicationController
     @deck = Deck.where(id: params[:id]).first
     @user = current_user
 
+
     @deck_card_names = @deck.cardnames.split(",")
     @deck_card_images = @deck.imageurls.split(",")
 
@@ -68,6 +68,10 @@ class DecksController < ApplicationController
     #   @deck_card_names.push(specific_card.name)
     #   @deck_card_images.push(specific_card.image_url)
     # end
+    @card_list_hash = parseDeckToHash(@deck)
+    @image_set_string = parseDeckImages(@deck)
+    @image_set_array = @image_set_string.split(",")
+
 
     @user = User.where(id: params[:user_id]).first
     #@pagenum will hold the number and be edited on the webpage for link usage
@@ -104,6 +108,7 @@ class DecksController < ApplicationController
     @deck_card_images = @deck.imageurls.split(",")
 
     deck_card_list_array = @deck.cardlist.split(",")
+
     p @deck_card_names
 
     # deck_card_list_array.each do |card|
@@ -112,8 +117,8 @@ class DecksController < ApplicationController
     #   @deck_card_images.push(specific_card.image_url)  
     # end
     # p @deck_card_images
-    @pagenum = params[:page_num]
 
+    @pagenum = params[:page_num]
 
   end
 
@@ -171,7 +176,70 @@ class DecksController < ApplicationController
   def update
   end
 
+    @deck = Deck.find(params[:id])
+
+    @card_list_hash = parseDeckToHash(@deck)
+    @image_set_string = parseDeckImages(@deck)
+  end
+
   def destroy
+  end
+
+  # Custom functions for specific data retrieval
+  def parseDeckToHash(mtgdeck)
+    deck_cardlist_array = mtgdeck.cardlist.split(",")
+    deck_cardlist_names = []
+    deck_cardlist_types = []
+    deck_hash = Hash.new{ |h, k| h[k] = [0, ""] }
+
+    deck_cardlist_array.each do |card_id|
+      if specific_card = MTG::Card.find(card_id)
+        deck_cardlist_names.push(specific_card.name)
+        deck_cardlist_types.push(specific_card.type)
+      end
+    end
+
+    deck_cardlist_names.each_with_index do |cname, i|
+        deck_hash[cname][0] += 1
+        deck_hash[cname][1] = deck_cardlist_types[i]
+    end
+
+    puts deck_hash
+
+    # Returns a hash with key value pair (card name => # of that card in deck)
+    return deck_hash
+  end
+
+  def parseDeckImages(mtgdeck)
+    require 'set'
+
+    deck_cardlist_array = mtgdeck.cardlist.split(",")
+    deck_cardlist_images = []
+
+    deck_cardlist_array.each do |card_id|
+      if specific_card = MTG::Card.find(card_id)
+        deck_cardlist_images.push(specific_card.image_url)
+      end
+    end
+
+    image_set = Set.new(deck_cardlist_images)
+    image_set_string = ""
+
+    image_set.each do |imglink|
+      image_set_string += (imglink + ",")
+    end
+
+    # Returns a string of image_urls for a deck list (hashed)
+    return image_set_string
+  end
+
+  ##################################
+
+  def retrieveDeckCardTypeHash(mtgdeck, card_type)
+    deck_cardlist_array = mtgdeck.cardlist.split(",")
+    deck_cardtype_array = []
+
+
   end
 
   private
