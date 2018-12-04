@@ -1,1 +1,8 @@
-<h1>Users Index</h1>
+<h1>All Users</h1>
+
+<% @user.each do |u| %>
+  <%#@user_decks.each do |d| %>
+        <div>Users Email <%= u.email %></div>
+        <br>
+  <%# end %>
+<%end%>
