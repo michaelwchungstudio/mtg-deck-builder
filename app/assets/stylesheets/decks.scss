@@ -32,7 +32,9 @@
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 15px;
 }
-
+.card-back{
+  background-image: url('mtg_cardback.jpg');
+}
 .card-image {
   height: 300px;
   width: 250px;

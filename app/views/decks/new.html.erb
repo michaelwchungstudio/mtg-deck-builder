@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 	<div class="bothForms">
-		<h2>Create a new deck by entering the name for it and clicking Create Deck</h2>
-		the form to create a deck.
+		<h2 style="text-align: center;">Create a new deck</h2>
+		<!-- the form to create a deck. -->
 		<%= form_for ([current_user , @deck]) do |d| %>
 
 			<%= d.text_field  :name, placeholder: "Enter the name of the deck" %>

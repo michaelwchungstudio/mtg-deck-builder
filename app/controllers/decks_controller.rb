@@ -33,7 +33,7 @@ class DecksController < ApplicationController
   # Retrieves the card_id through a hidden field and adds it to the deck's string property 'cardlist'
   def addCardToDeck
     @user = current_user
-    card_id = params[:card_id]
+    card_id = params[:card_name]
     card = MTG::Card.where(id: card_id).all
     card = card[0]
     deck_id = params[:deck_id]
@@ -139,7 +139,7 @@ class DecksController < ApplicationController
     cardname = @deck.cardnames.split('%')
     cardimage = @deck.imageurls.split(',')
     cardtype = @deck.cardtypes.split(',')
-
+    index = cardlist.indexOf(params[:card_name])
     cardlist.delete_at(params[:card_index].to_i)
     cardname.delete_at(params[:card_index].to_i)
     cardimage.delete_at(params[:card_index].to_i)
