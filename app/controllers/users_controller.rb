@@ -5,8 +5,13 @@ class UsersController < ApplicationController
     # @user_decks = Deck.where(user_id: @user.id)
   end
 
+  def show
+    @user_deck = User.find(params[:id])
+
+  end
+
   def profile
-    @user = current_user
+    @user = User.find(params[:id])
     @user_decks = Deck.where(user_id: @user.id)
   end
 end

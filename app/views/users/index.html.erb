@@ -2,7 +2,8 @@
 
 <% @user.each do |u| %>
   <%#@user_decks.each do |d| %>
-        <div>Users Email <%= u.email %></div>
+        <div>Users Email <a href="/profile/<%= u.id %>"><%= u.email %></a> </div>
+        <!-- <div class=""> <strong><a href="/blogs/ <%#= b.id %>"><%#= b.title%></a></strong> </div> -->
         <br>
   <%# end %>
 <%end%>
