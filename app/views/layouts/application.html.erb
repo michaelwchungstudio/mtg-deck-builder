@@ -18,6 +18,8 @@
       <nav>
         <ul>
           <li><a href="/"><div id="mtglogo"></div></a></li>
+          <li><a href="/users" class="navtextlink">USERS</a></li>
+          <li><a href="/decks" class="navtextlink">DECKS</a></li>
 
           <% if user_signed_in? %>
             <li><%= link_to 'PROFILE', user_profile_path(current_user), :class => "navtextlink" %></li>
