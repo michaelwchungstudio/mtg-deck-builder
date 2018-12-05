@@ -112,8 +112,27 @@
   margin-bottom: 30px;
 }
 
+.wrapper{
+  border: 2px solid; border-radius: 50px;
+  background-color: #282828; width: 30%;
+  margin: 10px auto; box-shadow: 3px 3px 3px black;
+  color: white; }
 
+.deck_name{
+  font-size: 25px;
+  text-align: center;
+  color: white;
+}
 
+.image{
+  margin: 0 auto;
+  // border: 2px solid;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 400px;
+  background-image: url('mtg_cardback.jpg');
+}
 
 
 

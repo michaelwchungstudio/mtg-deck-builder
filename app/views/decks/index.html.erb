@@ -1,20 +1,19 @@
-<% if user_signed_in?%>
-	<div> Your decks: </div>
-	<% if @decks.length != 0%>
-		<% for deck in @decks %>
+<% if user_signed_in?%> <div class="deck_name"> Your decks: </div>
+	<br>
+		<% if @decks.length != 0%> <% for deck in @decks %>
 			<% if deck.user_id == current_user.id %>
-				<div><%= deck.name %></div>
-
-				<a href="/users/<%= deck.user_id %>/decks/<%= deck.id %>/edit/1">Edit this deck</a>
-			<% end %>
+			<div class="wrapper">
+				<div class="deck_name"><%= deck.name %></div>
+				<div class="deck_name"><a href="/users/<%= deck.user_id %>/decks/<%= deck.id %>/edit/1">Edit this deck</a></div>
+				<div class="image"></div>
+				<br>
+		</div>
 		<% end %>
-
-	<% else %>
-		<div>No decks currently made.</div>
-		<div><%= link_to "Click here to make a new deck", new_user_deck_path(current_user) %></div>
 	<% end %>
-
-<% end %>
-
-
-<div> </div>
+<% else %>
+		<div>No decks currently made.</div>
+			<div><%= link_to "Click here to make a new deck", new_user_deck_path(current_user) %></div>
+		<% end %>
+	<% end %>
+	<div>
+</div>
