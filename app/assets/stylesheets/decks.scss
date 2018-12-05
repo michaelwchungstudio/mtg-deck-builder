@@ -116,8 +116,18 @@
   border: 2px solid; border-radius: 50px;
   background-color: #282828; width: 30%;
   margin: 10px auto; box-shadow: 3px 3px 3px black;
-  color: white; }
+  color: white;
 
+}
+
+.wrapper:hover{
+  color: black;
+  background-color: white;
+  opacity: .8;
+  transition: 1s;
+  transition-duration: 1s;
+
+}
 .deck_name{
   font-size: 25px;
   text-align: center;
@@ -134,6 +144,10 @@
   background-image: url('mtg_cardback.jpg');
 }
 
+.container{
+  display: flex;
+  flex-wrap: wrap;
+}
 
 
 //
