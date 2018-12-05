@@ -62,7 +62,9 @@
           	<% end %>
           <p class='card-set'><%= card.set_name %></p>
           <p class='card-rarity'><%= card.rarity %></p>
+					
 					<p>$<%= @card_price[i]%></p>
+
           	<% if user_signed_in? %>
 	            <% if current_user.id == @deck.user_id %>
 			          <%= form_tag "/addcard", :name => "addCard" do %>
