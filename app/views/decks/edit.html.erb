@@ -81,27 +81,36 @@
 	        	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
 	      	<% end %>
 	        <div class='card-information'>
-	          <h3 class='card-name'><%= card.name %></h3>
-	          <p class='card-mana-cost'><%= card.mana_cost %></p>
+	          <h3 class='card-name-cost'><strong><%= card.name %></strong> | <%= card.mana_cost %></h3>
 						<p class='card-text'><%= card.text %></p>
-						<p>$<%= @card_price[i]%></p>
+						<p class='card-price'>Price: $<%= @card_price[i]%></p>
 	          	<% if user_signed_in? %>
 		            <% if current_user.id == @deck.user_id %>
 				          <%= form_tag "/addcard", :name => "addCard" do %>
 				            <%= hidden_field_tag :deck_id, @deck.id %>
 				            <%= hidden_field_tag :user_id, current_user.id %>
 				            <%= hidden_field_tag :card_id, card.id %>
-				            <input type='submit' value="add card">
+				            <input type='submit' value="ADD" class="add-card-button">
 				          <% end %>
 			        <% end %>
 		    	<% end %>
 	        </div>
 	      </div>
 	    <% end %>
+			<div class='prev-next-sec'>
+				<% if @pagenum.to_i <= 1 %>
+					<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+			<% else %>
+					<!-- these links goes to the pages of all the cards based on what page you are on. -->
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+				<% end %>
+			</div>
 	</div>
 
   <div class='deck-list-wrapper'>
-    <h2 class='deck-sec-title'>Deck List</h2>
+    <h2 class='deck-sec-title'><%= @deck.name %></h2>
 
 		<% if deck_creatures.length != 0 %>
 			<h3 class='card-type-deck-title'>Creature</h3>
@@ -112,10 +121,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 			      <% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -132,10 +141,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 						<% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -152,10 +161,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 						<% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -172,10 +181,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 						<% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -192,10 +201,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 			      <% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -212,10 +221,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 						<% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -232,10 +241,10 @@
 					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
 					<% if user_signed_in? %>
 						<% if current_user.id == @deck.user_id %>
-							<%= form_tag "/remove_card" , :name => "removeCard", :class => "remove-card-button" do %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
 								<%= hidden_field_tag :card_name, name %>
 								<%= hidden_field_tag :deck_id, @deck.id %>
-								<input type="submit" value="-">
+								<input type="submit" value="-" class="remove-card-button">
 							<% end %>
 						<% end %>
 					<% end %>
@@ -244,19 +253,4 @@
 		</div>
 
 	</div>
-</div>
-
-<div>
-	<% if @pagenum.to_i <= 1 %>
-		<ul>
-			<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-		</ul>
-	<% else %>
-		<ul>
-			<!-- these links goes to the pages of all the cards based on what page you are on. -->
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
-		</ul>
-	<% end %>
 </div>

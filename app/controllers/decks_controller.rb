@@ -88,7 +88,7 @@ class DecksController < ApplicationController
     #ebay functionality
     for card in @cards
 
-    searchTerm = card.name
+    searchTerm = card.name + " mtg"
     ebay = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=' + appID +'&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter.paramName=Currency&itemFilter.paramValue=USD&keywords=' + searchTerm
 
     faraday = Faraday.new(url: ebay) do |f|
