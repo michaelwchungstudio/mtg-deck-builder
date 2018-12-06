@@ -1,3 +1,51 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profilePage{
+  margin: 5em auto;
+  width: 75%;
+  // border: 2px solid;
+}
+
+.userEmail{
+  font-size: 1.85em;
+  text-align: center;
+}
+
+.users_decks{
+  background-color: #282828;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 1em;
+  // border: 2px solid pink;
+
+  hr{
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+}
+
+.text{
+  width: 30em;
+  margin: 0 auto;
+  text-align: center;
+  // border: 2px solid pink;
+  h2{
+    font-size: 1.25em;
+    color: #d4d4d4;
+  }
+  a{
+    text-decoration: none;
+    font-size: 1.10em;
+    font-weight: bold;
+    color: #37BED2;
+  }
+
+  a:hover{
+    color: #FA8072;
+  }
+
+}

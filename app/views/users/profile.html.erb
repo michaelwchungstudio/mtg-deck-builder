@@ -1,11 +1,19 @@
-<h1>User profile</h1>
+<div class="profilePage">
 
-<p> User email: <%= @user.email %></p>
+    <p class="userEmail">  <%= @user.email %></p>
 
-<h2>User's decks</h2>
 
-<% @user_decks.each do |deck| %>
-  <a href="/users/<%= @user.id %>/decks/<%= deck.id %>"> <%= deck.name %></a>
-  <br>
-  <br>
-<% end %>
+  <div class="users_decks">
+
+    <div class="text">
+        <h2>Your Decks</h2>
+        <hr>
+        <% @user_decks.each do |deck| %>
+          <a href="/users/<%= @user.id %>/decks/<%= deck.id %>"> <%= deck.name %></a>
+          <br>
+          <br>
+        <% end %>
+    </div>
+  </div>
+
+</div>
