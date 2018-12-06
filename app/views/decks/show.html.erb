@@ -136,10 +136,14 @@
       <div id='hover-card-image'></div>
     </div>
   </div>
-  <div class='center-align'>
+  <div class='center-align show-button'>
     <% if user_signed_in? %>
       <% if current_user.id == @deck.user_id %>
-      <a href="/users/<%= @deck.user_id %>/decks/<%= @deck.id %>/edit/1" class="link-button">EDIT DECK</a>
+        <a href="/users/<%= @deck.user_id %>/decks/<%= @deck.id %>/edit/1" class="link-button">EDIT DECK</a>
+        <%= form_tag "/destroy",  :name => "destroyForm",data: {confirm: "Are you sure?"} do %>
+            <input type="hidden" name="deck_id" value="<%= @deck.id %>">
+            <input  class="link-button" type="submit" value="DELETE DECK">
+          <% end %>
       <% end %>
     <% end %>
   </div>
