@@ -103,11 +103,11 @@
 			<div class='prev-next-sec'>
 				<% if @pagenum.to_i <= 1 %>
 					<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
-					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
 			<% else %>
 					<!-- these links goes to the pages of all the cards based on what page you are on. -->
-					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
-					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
+					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
 				<% end %>
 			</div>
 	</div>
