@@ -81,7 +81,7 @@
 	        	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
 	      	<% end %>
 	        <div class='card-information'>
-	          <h3 class='card-name-cost'><strong><%= card.name %></strong> | <%= card.mana_cost %></h3>
+	          <h3 class='card-name-cost'><strong><%= card.name %></strong><% if card.mana_cost != nil %> | <% end %><%= card.mana_cost %></h3>
 						<p class='card-text'><%= card.text %></p>
 						<p class='card-price'>Price: $<%= @card_price[i]%></p>
 	          	<% if user_signed_in? %>

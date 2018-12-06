@@ -148,6 +148,7 @@
   width: 60%;
   margin: 0 auto;
 }
+
 .add-card-form{
   display: grid;
   width: 40%;
@@ -156,8 +157,8 @@
   grid-column-gap: 2rem;
   grid-template-columns:1fr 1fr;
 }
+
 .add-form-number-field{
-  height: 2.8rem;
+  height: 2.6rem;
   width: 4rem;
 }
-
