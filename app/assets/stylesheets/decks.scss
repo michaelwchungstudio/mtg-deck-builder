@@ -130,6 +130,11 @@
   width: 75%;
   margin: 0 auto;
 }
-
+.show-button{
+  display: grid;
+  grid-template-columns: .5fr 1fr;
+  width: 60%;
+  margin: 0 auto;
+}
 
 //

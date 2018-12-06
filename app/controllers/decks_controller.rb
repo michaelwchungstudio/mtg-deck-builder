@@ -190,6 +190,10 @@ class DecksController < ApplicationController
   end
 
   def destroy
+    @deck = Deck.where(id: params[:deck_id]).first
+    @deck.destroy
+
+    redirect_to "/decks/"
   end
 
   # Custom functions for specific data retrieval
