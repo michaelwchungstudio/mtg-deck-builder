@@ -1,3 +1,31 @@
+<!-- Split Cardlist Hash into Types Hashes -->
+<!-- Each type has a hash for card name => array of card information -->
+<% deck_creatures = {} %>
+<% deck_sorceries = {} %>
+<% deck_instants = {} %>
+<% deck_artifacts = {} %>
+<% deck_enchantments = {} %>
+<% deck_lands = {} %>
+<% deck_misc = {} %>
+
+<% @card_list_hash.each do |cardname, array| %>
+    <% if array[1].include?('Creature')%>
+      <% deck_creatures[cardname] = array %>
+    <% elsif array[1].include?('Sorcery')%>
+      <% deck_sorceries[cardname] = array %>
+    <% elsif array[1].include?('Instant')%>
+      <% deck_instants[cardname] = array %>
+    <% elsif array[1].include?('Enchantment')%>
+      <% deck_enchantments[cardname] = array %>
+    <% elsif array[1].include?('Land')%>
+      <% deck_lands[cardname] = array %>
+    <% elsif array[1].include?('Artifact')%>
+      <% deck_artifacts[cardname] = array %>
+    <% else %>
+      <% deck_misc[cardname] = array %>
+    <% end %>
+<% end %>
+
 <!-- The page defaults to looking for all the cards in Magic -->
 <%= form_tag "/search", :name => "searchForm"  do %> <!-- this form does the search for the cards -->
 <div class="searchForm">
@@ -43,87 +71,186 @@
 </div>
 <% end %>
 
-<div class='card-result-wrapper'>
-    <% @cards.each_with_index do |card, i| %>
-      <div class='card-result'>
-        <% if card.image_url == nil %>
-        	<div class='card-image' style="background-image: url(<%= image_url('mtg_cardback.jpg')%>)"></div>
-      	<% else %>
-        	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
-      	<% end %>
-        <div class='card-information'>
-          <h3 class='card-name'><%= card.name %></h3>
-          <p class='card-mana-cost'><%= card.mana_cost %></p>
-          <p class='card-type'><%= card.type %></p>
-          	<% if card.subtypes == nil %>
-          		<p class='card-subtype'></p>
-          	<% else %>
-          		<p class='card-subtype'><%= card.subtypes.join(', ') %></p>
-          	<% end %>
-          <p class='card-set'><%= card.set_name %></p>
-          <p class='card-rarity'><%= card.rarity %></p>
-					
-					<p>$<%= @card_price[i]%></p>
-
-          	<% if user_signed_in? %>
-	            <% if current_user.id == @deck.user_id %>
-			          <%= form_tag "/addcard", :name => "addCard" do %>
-			            <%= hidden_field_tag :deck_id, @deck.id %>
-			            <%= hidden_field_tag :user_id, current_user.id %>
-			            <%= hidden_field_tag :card_id, card.id %>
-			            <input type='submit' value="add card">
-			          <% end %>
-		        <% end %>
-	    	<% end %>
-        </div>
-      </div>
-    <% end %>
-</div>
+<div class='results-decklist-wrapper'>
+	<div class='card-result-wrapper'>
+	    <% @cards.each_with_index do |card, i| %>
+	      <div class='card-result'>
+	        <% if card.image_url == nil %>
+	        	<div class='card-image' style="background-image: url(<%= image_url('mtg_cardback.jpg')%>)"></div>
+	      	<% else %>
+	        	<div class='card-image' style="background-image: url(<%= card.image_url %>)"></div>
+	      	<% end %>
+	        <div class='card-information'>
+	          <h3 class='card-name-cost'><strong><%= card.name %></strong> | <%= card.mana_cost %></h3>
+						<p class='card-text'><%= card.text %></p>
+						<p class='card-price'>Price: $<%= @card_price[i]%></p>
+	          	<% if user_signed_in? %>
+		            <% if current_user.id == @deck.user_id %>
+				          <%= form_tag "/addcard", :name => "addCard" do %>
+				            <%= hidden_field_tag :deck_id, @deck.id %>
+				            <%= hidden_field_tag :user_id, current_user.id %>
+				            <%= hidden_field_tag :card_id, card.id %>
+				            <input type='submit' value="ADD" class="add-card-button">
+				          <% end %>
+			        <% end %>
+		    	<% end %>
+	        </div>
+	      </div>
+	    <% end %>
+			<div class='prev-next-sec'>
+				<% if @pagenum.to_i <= 1 %>
+					<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+			<% else %>
+					<!-- these links goes to the pages of all the cards based on what page you are on. -->
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
+					<a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
+				<% end %>
+			</div>
+	</div>
 
   <div class='deck-list-wrapper'>
-    <h2 class='deck-title'>Deck List</h2>
+    <h2 class='deck-sec-title'><%= @deck.name %></h2>
 
-		<% @card_list_hash.each_with_index do |(cname, array), i| %>
-			<% if @image_set_array[i] == nil %>
-				<div class='deck-list-card' style="background-image: url(<%= image_url('mtg_cardback.jpg') %>)"><%= array[0].to_s + "x - " + cname %></div>
-			<% else %>
-				<div class='deck-list-card' style="background-image: url(<%= @image_set_array[i] %>)"><%= array[0].to_s + "x - " + cname %></div>
-			<% end %>
-			<% if user_signed_in? %>
-	      <% if current_user.id == @deck.user_id %>
-					<%= form_tag "/remove_card" , :name => "removeCard" do %>
-						<%= hidden_field_tag :card_name, cname %>
-						<%= hidden_field_tag :deck_id, @deck.id %>
-						<input type="submit" value="remove card">
-					<% end %>
-				<% end %>
-			<% end %>
+		<% if deck_creatures.length != 0 %>
+			<h3 class='card-type-deck-title'>Creature</h3>
 		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_creatures.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+			      <% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
 
-    <h3 class='card-type-deck-title'>Creature</h3>
-    <div class='creature-list type-list'></div>
-    <h3 class='card-type-deck-title'>Sorcery</h3>
-    <div class='sorcery-list type-list'></div>
-    <h3 class='card-type-deck-title'>Instant</h3>
-    <div class='instant-list type-list'></div>
-    <h3 class='card-type-deck-title'>Artifacts</h3>
-    <div class='artifact-list type-list'></div>
-    <h3 class='card-type-deck-title'>Enchantments</h3>
-    <div class='enchantment-list type-list'></div>
-    <h3 class='card-type-deck-title'>Lands</h3>
-    <div class='lands-list type-list'></div>
-</div>
-<div>
-	<% if @pagenum.to_i <= 1 %>
-		<ul>
-			<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-		</ul>
-	<% else %>
-		<ul>
-			<!-- these links goes to the pages of all the cards based on what page you are on. -->
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i + 1 %>">Next</a></li>
-			<li> <a href="/users/<%= @user.id %>/decks/<%= @deck.id %>/edit/<%= @pagenum.to_i - 1 %>">Previous</a></li>
-		</ul>
-	<% end %>
+		<% if deck_artifacts.length != 0 %>
+			<h3 class='card-type-deck-title'>Artifact</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_artifacts.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+						<% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+		<% if deck_enchantments.length != 0 %>
+			<h3 class='card-type-deck-title'>Enchantment</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_enchantments.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+						<% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+		<% if deck_sorceries.length != 0 %>
+			<h3 class='card-type-deck-title'>Sorcery</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_sorceries.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+						<% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+		<% if deck_instants.length != 0 %>
+			<h3 class='card-type-deck-title'>Instant</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_instants.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+			      <% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+		<% if deck_lands.length != 0 %>
+			<h3 class='card-type-deck-title'>Land</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_lands.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+						<% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+		<% if deck_misc.length != 0 %>
+			<h3 class='card-type-deck-title'>Misc.</h3>
+		<% end %>
+		<div class='deck-index-type-sec'>
+			<% deck_misc.each do |name, array| %>
+				<div class='deck-index-card-sec' style="background-image: url(<%= array[2] %>)">
+					<p class='deck-index-card'><%= array[0] %>x - <%=name%></p>
+					<% if user_signed_in? %>
+						<% if current_user.id == @deck.user_id %>
+							<%= form_tag "/remove_card", :name => "removeCard" do %>
+								<%= hidden_field_tag :card_name, name %>
+								<%= hidden_field_tag :deck_id, @deck.id %>
+								<input type="submit" value="-" class="remove-card-button">
+							<% end %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+
+	</div>
 </div>
