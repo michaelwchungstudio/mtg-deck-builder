@@ -1,13 +1,12 @@
 <div class="profilePage">
 
-    <p class="userEmail">  <%= @user.email %></p>
-
+  <p class="userEmail">  <%= @user.email %></p>
 
   <div class="users_decks">
 
     <div class="text">
-        <h2>Your Decks</h2>
-        <hr>
+        <h2 class='profile-yourdecks'>Your Decks</h2>
+        <div class='underscore'></div>
         <% @user_decks.each do |deck| %>
           <a href="/users/<%= @user.id %>/decks/<%= deck.id %>"> <%= deck.name %></a>
           <br>
