@@ -198,7 +198,9 @@ class DecksController < ApplicationController
     @deck = Deck.where(id: params[:deck_id]).first
     @deck.destroy
 
-    redirect_to "/decks/"
+    @user = current_user
+
+    redirect_to "/profile/#{@user.id}"
   end
 
   # Custom functions for specific data retrieval
