@@ -87,10 +87,13 @@
 	          	<% if user_signed_in? %>
 		            <% if current_user.id == @deck.user_id %>
 				          <%= form_tag "/addcard", :name => "addCard" do %>
-				            <%= hidden_field_tag :deck_id, @deck.id %>
-				            <%= hidden_field_tag :user_id, current_user.id %>
-				            <%= hidden_field_tag :card_id, card.id %>
-				            <input type='submit' value="ADD" class="add-card-button">
+				          	<div class="add-card-form">
+					            <%= hidden_field_tag :deck_id, @deck.id %>
+					            <%= hidden_field_tag :user_id, current_user.id %>
+					             <input type="number" name="quantity" class="add-form-number-field" min="1" value="1">
+					            <%= hidden_field_tag :card_id, card.id %>
+					            <input type='submit' value="ADD" class="add-card-button">
+				        	</div>
 				          <% end %>
 			        <% end %>
 		    	<% end %>
