@@ -101,14 +101,18 @@
 	      </div>
 	    <% end %>
 			<div class='prev-next-sec'>
-				<% if @pagenum.to_i <= 1 %>
+				<% if @pagenum.to_i <= 1 && @cards.length == 9 %>
 					<!-- this link goes to the next page of all the cards in magic if its on page 1 -->
 					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
-			<% else %>
+			<% elsif @pagenum.to_i > 1 && @cards.length == 9 %>
+			
 					<!-- these links goes to the pages of all the cards based on what page you are on. -->
 					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
 					<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i + 1 %>" class="page-button">Next</a>
-				<% end %>
+			<% elsif @pagenum.to_i >1 && @cards.length < 9 %>
+				<a href="/users/<%= params[:user_id] %>/decks/<%= params[:id] %>/result/<%= @search_name %>%/<%= @search_color %>%/<%= @search_type %>%/<%= @search_creature %>%/<%= @search_set%>%/<%= @pagenum.to_i - 1 %>" class="page-button prev-button">Previous</a>
+			<% else %>
+			<% end %>
 			</div>
 	</div>
 
