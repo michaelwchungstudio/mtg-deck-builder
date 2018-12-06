@@ -88,21 +88,24 @@ class DecksController < ApplicationController
 
     #eBay functionality
     for card in @cards
+      searchTerm = card.name + " mtg"
+      ebay = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=' + appID +'&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter.paramName=Currency&itemFilter.paramValue=USD&keywords=' + searchTerm
 
-    searchTerm = card.name + " mtg"
-    ebay = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=' + appID +'&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter.paramName=Currency&itemFilter.paramValue=USD&keywords=' + searchTerm
+      faraday = Faraday.new(url: ebay) do |f|
+                  f.request :url_encoded
+                  f.adapter :net_http
+                  f.headers['Content-Type'] = 'application/json'
+                  end
 
-    faraday = Faraday.new(url: ebay) do |f|
-                f.request :url_encoded
-                f.adapter :net_http
-                f.headers['Content-Type'] = 'application/json'
-                end
+      response = faraday.get()
 
-    response = faraday.get()
+      value = JSON.parse(response.body)
 
-    value = JSON.parse(response.body)
-
-    @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+      if value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"] != nil
+        @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+      else
+        @card_price.push("Unknown")
+      end
     end
   end
 
@@ -115,7 +118,6 @@ class DecksController < ApplicationController
     #the redirect page starts the template for how searches will be parsed by the controllers next action.
     #we'll decrypt the search with a chomp function and go from there.
     redirect_to "/users/#{ @user.id }/decks/#{ @deck.id }/result/#{params[:card_name].to_s}%/#{params[:card_color].to_s}%/#{params[:card_type].to_s}%/#{params[:creature_type].to_s}%/#{params[:set].to_s}%/1"
-
   end
 
   def result
@@ -154,7 +156,11 @@ class DecksController < ApplicationController
 
       value = JSON.parse(response.body)
 
-      @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+      if value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"] != nil
+        @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+      else
+        @card_price.push("Unknown")
+      end
     end
   end
 
@@ -163,8 +169,6 @@ class DecksController < ApplicationController
 
     @card_list_hash = parseDeckToHash(@deck)
     @image_set_string = parseDeckImages(@deck)
-
-    p @card_list_hash
   end
 
   def removeCardFromDeck
@@ -216,8 +220,6 @@ class DecksController < ApplicationController
         end
     end
 
-    puts deck_hash
-
     # Returns a hash with key value pair (card name => # of that card in deck)
     return deck_hash
   end
@@ -240,13 +242,6 @@ class DecksController < ApplicationController
   end
 
   ##################################
-
-  def retrieveDeckCardTypeHash(mtgdeck, card_type)
-    deck_cardlist_array = mtgdeck.cardlist.split(",")
-    deck_cardtype_array = []
-
-
-  end
 
   private
 

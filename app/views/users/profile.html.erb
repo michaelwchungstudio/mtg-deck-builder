@@ -5,7 +5,7 @@
   <div class="users_decks">
 
     <div class="text">
-        <h2 class='profile-yourdecks'>Your Decks</h2>
+        <h2 class='profile-yourdecks'>Decks</h2>
         <div class='underscore'></div>
         <% @user_decks.each do |deck| %>
           <a href="/users/<%= @user.id %>/decks/<%= deck.id %>"> <%= deck.name %></a>
