@@ -141,3 +141,23 @@
   padding: 5px 10px;
   border: 1px solid #D4D4D4;
 }
+
+.show-button{
+  display: grid;
+  grid-template-columns: .5fr 1fr;
+  width: 60%;
+  margin: 0 auto;
+}
+.add-card-form{
+  display: grid;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  grid-column-gap: 2rem;
+  grid-template-columns:1fr 1fr;
+}
+.add-form-number-field{
+  height: 2.8rem;
+  width: 4rem;
+}
+

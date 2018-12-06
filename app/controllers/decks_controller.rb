@@ -39,18 +39,19 @@ class DecksController < ApplicationController
     card = MTG::Card.where(id: card_id).all
     card = card[0]
     deck_id = params[:deck_id]
-
+    number = params[:quantity].to_i
     @deck = Deck.find(deck_id)
 
-    @deck.cardlist += (card_id + ",")
-    @deck.cardtypes += (card.type + ",")
-    if card.image_url != nil
-      @deck.imageurls += (card.image_url + ",")
-    else
-      @deck.imageurls += ("nil,")
+    for i in 1..number
+      @deck.cardlist += (card_id + ",")
+      @deck.cardtypes += (card.type + ",")
+      if card.image_url != nil
+        @deck.imageurls += (card.image_url + ",")
+      else
+        @deck.imageurls += ("nil,")
+      end
+      @deck.cardnames += (card.name + "%")
     end
-    @deck.cardnames += (card.name + "%")
-
     @deck.save
 
     redirect_back(fallback_location: root_path)
@@ -190,6 +191,10 @@ class DecksController < ApplicationController
   end
 
   def destroy
+    @deck = Deck.where(id: params[:deck_id]).first
+    @deck.destroy
+
+    redirect_to "/decks/"
   end
 
   # Custom functions for specific data retrieval
