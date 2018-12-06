@@ -11,6 +11,7 @@
 .userEmail{
   font-size: 1.85em;
   text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .users_decks{
@@ -18,7 +19,7 @@
   width: 70%;
   margin: 0 auto;
   border-radius: 20px;
-  padding: 1em;
+  padding: 2.5rem;
   // border: 2px solid pink;
 
   hr{
@@ -26,6 +27,16 @@
     margin-bottom: 1em;
   }
 
+  .profile-yourdecks {
+    margin-bottom: 1rem;
+  }
+
+  .underscore {
+    width: 25rem;
+    height: 2px;
+    margin: 0 auto 2.75rem;
+    background-color: #D4D4D4;
+  }
 }
 
 .text{

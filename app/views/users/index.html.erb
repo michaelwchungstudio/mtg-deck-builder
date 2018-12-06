@@ -1,7 +1,15 @@
-<h1>All Users</h1>
+<h2 class='content-title'>Users</h2>
 
-<% @user.each do |u| %>
-    <br>
-    <div>Users Email <a href="/profile/<%= u.id %>"><%= u.email %></a> </div>
-    <br>
-<%end%>
+<div class='profilePage'>
+  <div class='users_decks'>
+    <div class='text'>
+      <% @user.each do |u| %>
+        <a href="/profile/<%= u.id %>"><%= u.email %></a>
+        <br>
+        <br>
+      <%end%>
+    </div>
+
+  </div>
+
+</div>

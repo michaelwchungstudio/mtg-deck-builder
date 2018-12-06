@@ -1,17 +1,19 @@
 <div class="bothForms">
-  <h2 class="formTitle">Create A Deck</h2>
+  <h2 class="formTitle">Deck Name</h2>
 
   <%= form_for ([current_user , @deck]) do |d| %>
 
-  <%= d.text_field  :name %>
+    <%= d.text_field :name, :class => "emailForms decknameForm" %>
 
-  <%= d.hidden_field :cardlist, :value => "" %>
-  <%= d.hidden_field :user_id, :value => current_user.id %>
-  <%= d.hidden_field :cardtypes, :value => "" %>
-  <%= d.hidden_field :imageurls, :value => "" %>
-  <%= d.hidden_field :cardnames, :value => "" %>
+    <%= d.hidden_field :cardlist, :value => "" %>
+    <%= d.hidden_field :user_id, :value => current_user.id %>
+    <%= d.hidden_field :cardtypes, :value => "" %>
+    <%= d.hidden_field :imageurls, :value => "" %>
+    <%= d.hidden_field :cardnames, :value => "" %>
 
-  <%= d.submit %>
+  <div class='actions'>
+    <%= d.submit "Submit", :class => "link-button form-button" %>
+  </div>
 
   <% end %>
 

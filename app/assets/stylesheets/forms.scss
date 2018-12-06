@@ -1,0 +1,55 @@
+.bothForms {
+  font-family: 'Nanum Gothic', sans-serif;
+  color: #d4d4d4;
+  background-color:	#282828;
+  width: 30rem;
+  // height: 53vh;
+  padding: 5rem 4rem 3rem;
+  border-radius: 10px;
+  margin: 4.5rem auto;
+}
+
+.formTitle {
+  position: relative;
+  bottom: 30px;
+  font-weight: 600;
+}
+
+#signup {
+  font-weight: 100;
+}
+
+.emailForms {
+  margin-bottom: 7%;
+  width: 20rem;
+  height: 2.25rem;
+  padding-left: 5px;
+}
+
+.passwordForms {
+  margin-bottom: 5%;
+  width: 20rem;
+  height: 2.25rem;
+  padding-left: 5px;
+}
+
+.loginForm {
+  background-color:	#F5E4B8;
+  font-family: 'Nanum Gothic', sans-serif;
+  width: 40vw;
+  height: 60vh;
+  position: relative;
+  top: 10em;
+}
+
+.actions {
+  text-align: center;
+}
+
+.form-button {
+  margin: 2rem auto 0;
+}
+
+.decknameForm {
+  margin-bottom: 0.75rem;
+}

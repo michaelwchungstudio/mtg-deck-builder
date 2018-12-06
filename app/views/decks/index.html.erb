@@ -4,13 +4,15 @@
 		<div class="deck-index-container">
 			<% if @decks.length != 0 %>
 				<% for deck in @decks %>
-					<% if deck.user_id == current_user.id %>
-						<div class="index-deck-wrapper">
-							<div class="deck-image"></div>
-							<div><a href="/users/<%= deck.user_id %>/decks/<%= deck.id %>/" class="index-deck-name"><%= deck.name %></a></div>
+					<div class="index-deck-wrapper">
+						<div class="deck-image"></div>
+						<div><a href="/users/<%= deck.user_id %>/decks/<%= deck.id %>/" class="index-deck-name"><%= deck.name %></a></div>
+						<% if user_signed_in? %>
+							<% if deck.user_id == current_user.id %>
 							<div class="button-holder"><a href="/users/<%= deck.user_id %>/decks/<%= deck.id %>/edit/1" class="link-button invert-button-color">EDIT</a></div>
-						</div>
-					<% end %>
+							<% end %>
+						<% end %>
+					</div>
 				<% end %>
 		</div>
 			<% else %>
