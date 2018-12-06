@@ -139,7 +139,7 @@
   <div class='center-align'>
     <% if user_signed_in? %>
       <% if current_user.id == @deck.user_id %>
-       <%= link_to "EDIT DECK", edit_user_deck_path, :class => "link-button" %>
+      <a href="/users/<%= @deck.user_id %>/decks/<%= @deck.id %>/edit/1" class="link-button">EDIT DECK</a>
       <% end %>
     <% end %>
   </div>

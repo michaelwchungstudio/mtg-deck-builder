@@ -85,7 +85,7 @@ class DecksController < ApplicationController
 
     @card_price = []
 
-    #ebay functionality
+    #eBay functionality
     for card in @cards
 
     searchTerm = card.name + " mtg"
@@ -99,12 +99,9 @@ class DecksController < ApplicationController
 
     response = faraday.get()
 
-    p response.status
-    # p response.body
-    # p response.status
     value = JSON.parse(response.body)
 
-   @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+    @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
     end
   end
 
@@ -121,6 +118,8 @@ class DecksController < ApplicationController
   end
 
   def result
+    appID = "kylehamp-magic-PRD-660bef6c5-3442e159"
+
     #These instance variable will hold the various parameters of the search that was concat by the search method
     @search_name = params[:search_name].chomp('%')
     @search_color = params[:search_color].chomp('%')
@@ -137,6 +136,25 @@ class DecksController < ApplicationController
 
     @pagenum = params[:page_num]
 
+    @card_price = []
+
+    #eBay functionality
+    for card in @cards
+      searchTerm = card.name + " mtg"
+      ebay = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SECURITY-APPNAME=' + appID +'&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter.paramName=Currency&itemFilter.paramValue=USD&keywords=' + searchTerm
+
+      faraday = Faraday.new(url: ebay) do |f|
+                  f.request :url_encoded
+                  f.adapter :net_http
+                  f.headers['Content-Type'] = 'application/json'
+                  end
+
+      response = faraday.get()
+
+      value = JSON.parse(response.body)
+
+      @card_price.push(value["findItemsByKeywordsResponse"][0]["searchResult"][0]["item"][0]["sellingStatus"][0]["currentPrice"][0]["__value__"])
+    end
   end
 
   def show
