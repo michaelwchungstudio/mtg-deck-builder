@@ -90,33 +90,48 @@
   margin-bottom: 30px;
 }
 
-.wrapper{
-  border: 2px solid; border-radius: 25px;
-  background-color: #282828; width: 30%;
-  margin: 10px auto; box-shadow: 3px 3px 3px black;
+// Decks index page
+.deck-index-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.index-deck-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin: 15px auto;
+  padding: 15px 10px;
+  border-radius: 25px;
+  background-color: #282828;
   color: white;
-
-}
-
-.wrapper:hover{
-  color: black;
-  background-color: white;
-  opacity: .8;
-  transition: 1s;
-  transition-duration: 1s;
-
-}
-.deck_name{
-  font-size: 25px;
   text-align: center;
-  color: white;
 }
 
-.image{
-  margin: 10px auto;
+// .index-deck-wrapper:hover {
+//   color: black;
+//   background-color: #D4D4D4;
+//   transition: all 0.5s ease;
+// }
 
-  // border: 2px solid;
-  border-radius: 15px;
+.index-deck-name {
+  text-decoration: none;
+  font-size: 1.15em;
+  text-align: center;
+  color: #37BED2;
+  margin-bottom: 25px;
+}
+
+.index-deck-name:hover {
+  color: #FA8072;
+}
+
+.deck-image{
+  margin: 10px auto 20px;
+  border-radius: 10px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 200px;
@@ -124,12 +139,15 @@
   background-image: url('mtg_cardback.jpg');
 }
 
-.container{
-  display: flex;
-  flex-wrap: wrap;
-  width: 75%;
-  margin: 0 auto;
+.button-holder {
+  margin: 35px 0 25px;
 }
+
+.invert-button-color {
+  border: 1px solid #D4D4D4;
+}
+
+
 
 
 //
