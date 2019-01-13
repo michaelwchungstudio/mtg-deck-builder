@@ -1,24 +1,31 @@
-# README
+![Site Landing](/app/assets/siteimg/sitelanding.png)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Magic: The Gathering Deck Builder Application
 
-Things you may want to cover:
+Full-stack application that allows users to create, view, and share custom Magic: The Gathering
 
-* Ruby version
+## How To Use
 
-* System dependencies
+## Future Improvements / Bug Fixes
 
-* Configuration
+## Built with
 
-* Database creation
+* HTML
+* CSS / SASS
+* Ruby on Rails
+* eBay API
+* [Magic: The Gathering SDK Ruby implementation](https://github.com/MagicTheGathering/mtg-sdk-ruby)
 
-* Database initialization
+## Authors
 
-* How to run the test suite
+* Michael Chung
+* [Manuel Ortiz](https://github.com/ManuelAOrtiz)
+* [Kyle Hampton](https://github.com/kyle-hampton)
+* [Ross Coley](https://github.com/rlcoley)
 
-* Services (job queues, cache servers, search engines, etc.)
+## Acknowledgments
 
-* Deployment instructions
-
-* ...
+* Oggi Danailov
+* New York Code & Design Academy
+* StackOverflow
+* [Andrew Backes](https://github.com/adback03)
