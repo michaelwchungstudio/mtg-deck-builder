@@ -8,11 +8,11 @@ Full-stack application that allows users to create, view, and share custom Magic
 
 If cloning the repository:
 
-1.) Open terminal and navigate to the project folder.
-2.) Execute 'bundle install' in order to install gems.
-3.) Execute 'rails db:migrate' to create the database.
-4.) Start the server with 'rails s' command.
-5.) Open browser window with correct port (ex. localhost:3000).
+1. Open terminal and navigate to the project folder.
+2. Execute 'bundle install' in order to install gems.
+3. Execute 'rails db:migrate' to create the database.
+4. Start the server with 'rails s' command.
+5. Open browser window with correct port (ex. localhost:3000).
 
 If using the hosted Heroku application:
 
