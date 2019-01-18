@@ -52,7 +52,7 @@ Potential future functions to add:
  - additional user profile fields such as name (first and last), location, date of birth, brief biography.
  - React.js
  - add TCGPlayer and/or StarCityGames APIs in order to have more accurate price checks (SCG intentionally obfuscates pricing - would need to decode)
- - update certain parts of the website layout for more optimal UI/UX design
+ - update certain parts of the website layout for more optimal UI/UX design (navigation bar, general page layout, better cohesion)
 
 ## Built with
 
