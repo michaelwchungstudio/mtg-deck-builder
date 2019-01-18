@@ -62,7 +62,7 @@ Potential future functions to add:
 * Rails (version 5.2.1)
 * eBay API
 * [Magic: The Gathering Ruby SDK](https://github.com/MagicTheGathering/mtg-sdk-ruby)
-* Devise gem
+* [Devise](https://github.com/plataformatec/devise) gem
 
 ## Authors
 
