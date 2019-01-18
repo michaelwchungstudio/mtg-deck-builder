@@ -58,7 +58,8 @@ Potential future functions to add:
 
 * HTML
 * CSS / SASS
-* Ruby on Rails (version 2.5.1)
+* Ruby (version 2.5.1)
+* Rails (version 5.2.1)
 * eBay API
 * [Magic: The Gathering Ruby SDK](https://github.com/MagicTheGathering/mtg-sdk-ruby)
 * Devise gem
