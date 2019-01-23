@@ -1,0 +1,704 @@
+/* line 5, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.deck-creation-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 0.35fr;
+  grid-template-rows: 150px 1fr;
+  height: 1600px;
+  width: 90%;
+  margin: 0 auto 25px;
+  border: 1px solid green;
+}
+/* line 14, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.deck-creation-wrapper div {
+  border: 1px solid blue;
+}
+
+/* line 19, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.search-area-wrapper {
+  grid-column: 1 / 3;
+}
+
+/* line 23, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.card-type-deck-title {
+  margin-bottom: 5px;
+}
+
+/* line 27, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.type-list:last-child {
+  margin-bottom: 10px;
+}
+
+/* line 32, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.show-deck-card-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 0.4fr;
+  grid-gap: 15px;
+  width: 92.5%;
+  margin: 0 auto 3.5rem;
+  border-radius: 25px;
+  background-color: #282828;
+}
+/* line 41, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.show-deck-card-wrapper .left-col {
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row-gap: 20px;
+  padding: 40px 60px;
+  color: #D4D4D4;
+}
+/* line 50, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.show-deck-card-wrapper .right-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 0;
+  border-left: 7.5px solid #909090;
+}
+
+/* line 59, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.deck-list-sec-title {
+  grid-column: 1 / 4;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+/* line 66, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.card-type-deck-title {
+  margin-bottom: 16.5px;
+  font-weight: 600;
+}
+
+/* line 71, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+#hover-card-image {
+  height: 492.5px;
+  width: 355px;
+  background-image: url("mtg_cardback.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 19.5px;
+}
+
+/* line 80, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.card-in-deck {
+  margin-bottom: 6.5px;
+}
+
+/* line 84, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.card-in-deck:hover {
+  cursor: e-resize;
+}
+
+/* line 88, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.type-list > p:last-of-type {
+  margin-bottom: 30px;
+}
+
+/* line 93, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.deck-index-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  margin: 0 auto;
+}
+
+/* line 100, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.index-deck-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin: 15px auto;
+  padding: 2rem 1.5rem;
+  background-color: #282828;
+  color: white;
+  text-align: center;
+  border-radius: 15px;
+}
+
+/* line 113, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.deck-image {
+  margin: 10px auto 20px;
+  border-radius: 10px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 300px;
+  background-image: url("mtg_cardback.jpg");
+}
+
+/* line 123, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.index-deck-name {
+  text-decoration: none;
+  font-size: 1.15em;
+  font-weight: 500;
+  text-align: center;
+  color: #37BED2;
+  margin-bottom: 25px;
+}
+
+/* line 132, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.index-deck-name:hover {
+  color: #FA8072;
+}
+
+/* line 136, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.button-holder {
+  margin: 35px 0 25px;
+}
+
+/* line 140, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.invert-button-color {
+  padding: 5px 10px;
+  border: 1px solid #D4D4D4;
+}
+
+/* line 145, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.show-button {
+  display: grid;
+  grid-template-columns: .5fr 1fr;
+  width: 60%;
+  margin: 0 auto;
+}
+
+/* line 152, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.add-card-form {
+  display: grid;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  grid-column-gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* line 161, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/decks.scss */
+.add-form-number-field {
+  height: 2.6rem;
+  width: 4rem;
+}
+/* line 1, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.bothForms {
+  font-family: 'Nanum Gothic', sans-serif;
+  color: #d4d4d4;
+  background-color: #282828;
+  width: 30rem;
+  padding: 5rem 4rem 3rem;
+  border-radius: 10px;
+  margin: 4.5rem auto;
+}
+
+/* line 12, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.formTitle {
+  position: relative;
+  bottom: 30px;
+  font-weight: 600;
+}
+
+/* line 18, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+#signup {
+  font-weight: 100;
+}
+
+/* line 22, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.emailForms {
+  margin-bottom: 7%;
+  width: 20rem;
+  height: 2.25rem;
+  padding-left: 5px;
+}
+
+/* line 29, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.passwordForms {
+  margin-bottom: 5%;
+  width: 20rem;
+  height: 2.25rem;
+  padding-left: 5px;
+}
+
+/* line 36, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.loginForm {
+  background-color: #F5E4B8;
+  font-family: 'Nanum Gothic', sans-serif;
+  width: 40vw;
+  height: 60vh;
+  position: relative;
+  top: 10em;
+}
+
+/* line 45, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.actions {
+  text-align: center;
+}
+
+/* line 49, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.form-button {
+  margin: 2rem auto 0;
+}
+
+/* line 53, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/forms.scss */
+.decknameForm {
+  margin-bottom: 0.75rem;
+}
+/* line 1, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.results-decklist-wrapper {
+  display: grid;
+  grid-template-columns: 76% 22%;
+  grid-column-gap: 2%;
+  width: 95%;
+  padding: 2.5rem 1.5rem;
+  margin: 0 auto 3.5rem;
+  background-color: #282828;
+  color: #D4D4D4;
+}
+
+/* line 12, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.card-result-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 100px;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+}
+
+/* line 20, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.card-image {
+  height: 300px;
+  width: 217px;
+  border-radius: 14px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 20px auto 20px;
+}
+
+/* line 29, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.card-name-cost {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* line 35, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.card-text {
+  margin: 0 7.5% 20px;
+  font-size: 0.9em;
+  line-height: 1.5em;
+  padding-bottom: 17.5px;
+  border-bottom: 2px solid #D4D4D4;
+}
+
+/* line 43, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.card-price {
+  text-align: center;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+/* line 49, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.add-card-button {
+  display: block;
+  background-color: #282828;
+  color: #D4D4D4;
+  padding: 12px 15px 8px;
+  margin: 0 auto 25px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+/* line 59, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.add-card-button:hover {
+  filter: invert(100%);
+}
+
+/* line 63, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.prev-next-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  grid-column: 1 / 4;
+}
+
+/* line 71, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.page-button {
+  text-decoration: none;
+  color: #D4D4D4;
+  background-color: #282828;
+  border: 1px solid #D4D4D4;
+  padding: 11px 15px 8px;
+}
+
+/* line 79, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.page-button:hover {
+  filter: invert(100%);
+}
+
+/* line 83, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.prev-button {
+  margin-right: 20px;
+}
+
+/* line 88, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.deck-sec-title {
+  font-size: 1.1em;
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+/* line 94, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.deck-index-type-sec > :last-child {
+  border-bottom: none;
+  margin-bottom: 20px;
+}
+
+/* line 99, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.deck-index-card-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 10px 15px;
+  background-size: 120% auto;
+  background-repeat: no-repeat;
+  background-position: -30px -125px;
+  border-bottom: 3px solid #D4D4D4;
+}
+
+/* line 113, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.deck-index-card-sec:after {
+  content: '';
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to right, black, transparent);
+}
+
+/* line 124, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.deck-index-card {
+  position: relative;
+  z-index: 3;
+  font-size: 0.925em;
+  color: #D4D4D4;
+  padding-right: 15px;
+  margin-right: auto;
+  text-overflow: ellipsis;
+}
+
+/* line 134, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.remove-card-button {
+  position: relative;
+  z-index: 3;
+  background-color: #282828;
+  color: #D4D4D4;
+  padding: 2.5px 10px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+/* line 144, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/results.scss */
+.remove-card-button:hover {
+  filter: invert(100%);
+}
+/* line 1, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/search.scss */
+.searchForm {
+  display: grid;
+  grid-template-columns: .1fr 2fr .3fr .1fr .7fr 1.5fr;
+  grid-template-rows: 1fr 1fr;
+  width: 85%;
+  grid-row-gap: 37%;
+  grid-column-gap: 2%;
+  margin: 5rem auto 2.5rem;
+  background-color: #282828;
+  color: #d4d4d4;
+  padding: 3% 3% 4% 3%;
+}
+
+/* line 14, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/search.scss */
+#card_name {
+  font-size: 0.9em;
+  width: 85%;
+}
+
+/* line 19, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/search.scss */
+.search-word {
+  text-align: right;
+}
+
+/* line 23, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/search.scss */
+.search-button {
+  grid-row: 2/3;
+  grid-column: 6/7;
+}
+/* line 5, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Avenir";
+  font-size: 16px;
+  letter-spacing: 0.4px;
+}
+
+/* line 14, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.page-wrapper {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-rows: 0.1fr 1fr;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Light-bd09c8c93f4a42589aaae4b01a7380fc823e4a93787ec55aba7459bc17253c7f.otf);
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Roman-329190922cf0600802ff5478b37742aec0d8529f728bb85ae695462bad0aba39.otf);
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Book-2407234207f8f5fad8773cbcdbc418c8c1fcca592e07b9e38bcd7cd968db9ee6.otf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Medium-5e25b13ae133b9d6c539205085ba551c04ec2f594e97123efdd092d0e2d887f3.otf);
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Heavy-c9bb99645abe71c45a7aab5d8877cbca30ad03d906a428142246f82b5be62005.otf);
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Avenir";
+  src: url(/assets/AvenirLTStd-Black-e4b6150ba6f2d33f5b0c4b6f576c300ded663f133129f988808bb86c7a882c86.otf);
+  font-weight: 700;
+}
+/* line 59, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav {
+  background-color: #282828;
+}
+/* line 63, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav #mtglogo {
+  height: 62.5px;
+  width: 200px;
+  background-image: url("mtg_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 15px 0 20px 25px;
+  margin-right: auto;
+  filter: invert(100%);
+}
+/* line 75, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav ul {
+  display: flex;
+}
+/* line 78, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav ul li {
+  display: inline-block;
+  list-style-type: none;
+}
+/* line 83, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav ul li:first-child {
+  margin-right: auto;
+}
+/* line 87, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav ul .navtextlink {
+  color: #D4D4D4;
+  display: block;
+  line-height: 3em;
+  font-size: 1.1em;
+  font-weight: 600;
+  padding: 1.6em 2em 1.1em;
+  text-decoration: none;
+  border-bottom: 5px solid transparent;
+  transition: all 0.5s ease;
+  letter-spacing: 1px;
+}
+/* line 100, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+nav ul .navtextlink:hover {
+  border-bottom: 5px solid #D4D4D4;
+}
+
+/* line 106, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.main-content {
+  background-color: #909090;
+}
+
+/* line 110, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.content-title {
+  margin: 4rem 0 2.5rem 0;
+  font-size: 1.85em;
+  text-align: center;
+}
+
+/* line 116, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.content-wrapper {
+  padding-bottom: 7.5rem;
+}
+
+/* line 120, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.center-align {
+  text-align: center;
+}
+
+/* line 124, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.link-button {
+  border: 1px solid #D4D4D4;
+  text-decoration: none;
+  padding: 12px 16px;
+  background-color: #282828;
+  color: #D4D4D4;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+/* line 134, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/sitewide.scss */
+.link-button:hover {
+  filter: invert(100%);
+}
+/* line 5, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.profilePage {
+  margin: 5em auto;
+  width: 75%;
+}
+
+/* line 11, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.userEmail {
+  font-size: 1.85em;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* line 17, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.users_decks {
+  background-color: #282828;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 2.5rem;
+}
+/* line 25, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.users_decks hr {
+  width: 100%;
+  margin-bottom: 1em;
+}
+/* line 30, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.users_decks .profile-yourdecks {
+  margin-bottom: 1rem;
+}
+/* line 34, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.users_decks .underscore {
+  width: 20rem;
+  height: 2px;
+  margin: 0 auto 2.75rem;
+  background-color: #D4D4D4;
+}
+
+/* line 42, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.text {
+  width: 30em;
+  margin: 0 auto;
+  text-align: center;
+}
+/* line 47, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.text h2 {
+  font-size: 1.25em;
+  color: #d4d4d4;
+}
+/* line 51, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.text a {
+  text-decoration: none;
+  font-size: 1.10em;
+  font-weight: bold;
+  color: #37BED2;
+}
+/* line 58, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/users.scss */
+.text a:hover {
+  color: #FA8072;
+}
+/* line 5, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.home-content-wrapper {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 0.65fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* line 14, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom {
+  border: 1px solid;
+  overflow: hidden;
+}
+/* line 18, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom .banner-image {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s ease;
+}
+/* line 26, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom .banner-image .banner-title {
+  color: white;
+  font-weight: 700;
+  font-size: 2.5em;
+  letter-spacing: 1px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0px 15px 5px rgba(0, 0, 0, 0.1), 10px 20px 5px rgba(0, 0, 0, 0.05), -10px 20px 5px rgba(0, 0, 0, 0.05);
+}
+/* line 39, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom .motto-banner {
+  background-image: url("motto_banner.jpg");
+  background-size: cover;
+  background-position: 0 -125px;
+  grid-column: 1 / 3;
+}
+/* line 46, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom .show-deck-banner {
+  background-image: url("deck_banner.jpg");
+  background-size: cover;
+  background-position: 0 -15px;
+}
+/* line 52, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom .sign-up-banner {
+  background-image: url("sign_up_banner.jpg");
+  background-size: cover;
+  background-position: 0 -65px;
+}
+
+/* line 59, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.outer-zoom:first-child {
+  grid-column: 1 / 3;
+}
+
+/* line 63, /Users/DAZE/Desktop/mtg-deck-builder/app/assets/stylesheets/welcome.scss */
+.banner-image:hover {
+  transform: scale(1.15);
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
